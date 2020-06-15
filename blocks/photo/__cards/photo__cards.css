@@ -1,0 +1,21 @@
+.photo__cards {
+  width: 100%;
+  max-width: 882px;
+  margin: 0;
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  grid-column-gap: 18px;
+  grid-row-gap: 21px;
+}
+
+@media screen and (max-width:320px) {
+  .photo__cards {
+    -ms-grid-columns: 282px;
+    grid-template-columns: 282px;
+    grid-row-gap: 20px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
