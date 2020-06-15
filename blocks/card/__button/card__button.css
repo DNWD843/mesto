@@ -1,0 +1,9 @@
+.card__button {
+  width: 21px;
+  height: 18px;
+  -ms-flex-item-align: flex-end;
+  -ms-grid-row-align: flex-end;
+  align-self: flex-end;
+  margin-bottom: 4px;
+  background-size: cover;
+}

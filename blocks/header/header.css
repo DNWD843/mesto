@@ -1,0 +1,6 @@
+@import url('./__logo/header__logo.css');
+@import url('./__line/header__line.css');
+.header {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

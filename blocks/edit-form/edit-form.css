@@ -1,0 +1,29 @@
+@import url('./__title/edit-form__title.css');
+@import url('./__submit-button/edit-form__submit-button.css');
+@import url('./__inputs/edit-form__inputs.css');
+@import url('./__field/edit-form__field.css');
+@import url('./__input/edit-form__input.css');
+.edit-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 34px 36px 36px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 823px) {
+  .edit-form {
+    padding: 20px;
+  }
+}

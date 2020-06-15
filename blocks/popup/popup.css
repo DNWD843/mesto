@@ -1,0 +1,22 @@
+@import url('./__container/popup__container.css');
+@import url('./__close-button/popup__close-button.css');
+@import url('./__form/popup__form.css');
+.popup {
+  display: none;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: fixed;
+}
+
+@media screen and (max-width: 823px) {
+  .popup {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}

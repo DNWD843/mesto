@@ -1,0 +1,29 @@
+@import url('./__user-name/user-info__user-name.css');
+@import url('./__user-job/user-info__user-job.css');
+.user-info {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 17px auto;
+  grid-template-columns: repeat(2, auto);
+  grid-row-gap: 0px;
+  grid-column-gap: 17px;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+}
+
+@media screen and (max-width: 720px) {
+  .user-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+}
