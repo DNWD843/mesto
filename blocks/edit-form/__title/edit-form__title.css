@@ -5,7 +5,7 @@
   color: #000000;
   -ms-flex-item-align: start;
   align-self: flex-start;
-  margin-bottom: 44px;
+  margin: 0 0 44px 0;
 }
 
 @media screen and (max-width: 823px) {

@@ -1,4 +1,10 @@
-.button__submit_theme_dark {
+.button_type_submit {
+  border-radius: 2px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-style: none;
   background-color: #000000;
   text-align: center;
   color: #FFFFFF;
@@ -7,6 +13,6 @@
   transition: background-color .15s linear;
 }
 
-.button__submit_theme_dark:hover {
+.button_type_submit:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }

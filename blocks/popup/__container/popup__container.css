@@ -12,7 +12,8 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 144px;
+  margin-top: -20px;
+  /* центрую форму по вертикали без учета CloseButton */
 }
 
 @media screen and (max-width: 823px) {
