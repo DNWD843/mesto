@@ -2,11 +2,14 @@
   width: 100%;
   max-width: 882px;
   margin: 0;
+  list-style: none;
+  padding: 0;
   display: -ms-grid;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   grid-column-gap: 18px;
   grid-row-gap: 21px;
+  color: #000000;
 }
 
 @media screen and (max-width:320px) {

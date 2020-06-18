@@ -6,15 +6,37 @@
   padding-bottom: 25px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 17px auto;
+  grid-template-columns: repeat(2, auto);
+  grid-row-gap: 0px;
+  grid-column-gap: 17px;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
 }
 
 @media screen and (max-width: 720px) {
   .user-profile__user-info {
     margin: 0;
     padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
   }
 }
 
+
+}
 @media screen and (max-width: 425px) {
   .user-profile__user-info {
     width: 280px;
