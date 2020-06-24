@@ -1,53 +1,32 @@
 (function() {
   'use strict';
 
-  //найдем элемент попап
+  // ***************************************************************************  
+  // ФОРМА РЕДАКТИРОВАНИЯ ПРОФИЛЯ 
   const popUp = document.querySelector('.popup');
-
-  //найдем кнопку Close и вешаем на нее слушатель клика на закрытие
   const closeButton = popUp.querySelector('.popup__close-button');
-  closeButton.addEventListener('click', closePopup);
 
-  // Находим форму и прикрепляем обработчик к форме
   const formElement = popUp.querySelector('.popup__form');
-  formElement.addEventListener('submit', formSubmitHandler);
-
-  //Найдем блок с информацией пользователя
-  const userInfo = document.querySelector('.user-profile__user-info');
-
-  //Находим кнопку Edit и вешаем на нее слушатель клика на открытие
-  const editButton = userInfo.querySelector('.user-profile__edit-button');
-  editButton.addEventListener('click', openPopup);
-
-  // Имя пользователя
-  const userName = userInfo.querySelector('.user-profile__user-name');
-
-  // О себе
-  const userJob = userInfo.querySelector('.user-profile__user-job');
-
-  // инпут Имя пользователя
   const nameInput = formElement.querySelector('.edit-form__input_type_name');
-
-  // инпут О себе
   const jobInput = formElement.querySelector('.edit-form__input_type_job');
 
-  /* ************** ФУНКЦИИ ********************************** */
+  const userInfo = document.querySelector('.user-profile__user-info');
+  const editButton = userInfo.querySelector('.user-profile__edit-button');
+  const userName = userInfo.querySelector('.user-profile__user-name');
+  const userJob = userInfo.querySelector('.user-profile__user-job');
+
 
   // Функция открытия попапа
   function openPopup() {
-    //Наполняем инпуты актуальным содержимым
     nameInput.value = userName.textContent;
     jobInput.value = userJob.textContent;
-    //открываем окно
     popUp.classList.add('popup_opened');
     return;
   }
 
   // Функция закрытия попапа
   function closePopup() {
-    // Закрываем окно
     popUp.classList.remove('popup_opened');
-    //приводим инпуты в исходное состояние
     nameInput.value = userName.textContent;
     jobInput.value = userJob.textContent;
     return;
@@ -56,11 +35,35 @@
   // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
   function formSubmitHandler(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    // отправляем на страницу внесенные правки
     userName.textContent = nameInput.value;
     userJob.textContent = jobInput.value;
-    //вызываем функцию закрытия окна
     closePopup();
     return;
   }
+
+  editButton.addEventListener('click', openPopup);
+  closeButton.addEventListener('click', closePopup);
+  formElement.addEventListener('submit', formSubmitHandler);
+
+  // *********************************************************************************
+  //КНОПКА ЛАЙК
+  const photoCards = document.querySelector('.photo__cards');
+  const likeButtons = photoCards.querySelectorAll('.button_type_like');
+
+  function toggleLike(evt) {
+    const eventTarget = evt.target;
+    if (eventTarget.classList.contains('button_like-status_not-checked')) {
+      eventTarget.classList.remove('button_like-status_not-checked');
+      eventTarget.classList.add('button_like-status_checked');
+    } else {
+      eventTarget.classList.remove('button_like-status_checked');
+      eventTarget.classList.add('button_like-status_not-checked');
+    }
+  }
+  likeButtons.forEach(button => button.addEventListener('click', toggleLike));
+  // ************************************************************************************
+
+
+
+
 })();
