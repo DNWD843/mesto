@@ -5,5 +5,7 @@
   -ms-grid-row-align: flex-end;
   align-self: flex-end;
   margin-bottom: 4px;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }

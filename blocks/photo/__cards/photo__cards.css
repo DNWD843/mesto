@@ -6,13 +6,28 @@
   padding: 0;
   display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  /*grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));*/
+  /*grid-template-columns: repeat(auto-fit, 282px);*/
+  grid-template-columns: repeat(3, 282px);
+  grid-template-rows: repeat(2, 360px);
   grid-column-gap: 18px;
   grid-row-gap: 21px;
   color: #000000;
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:960px) {
+  .photo__cards {
+    grid-template-columns: repeat(2, 282px);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+
+/*@media screen and (max-width:320px)*/
+
+@media screen and (max-width:619px) {
   .photo__cards {
     -ms-grid-columns: 282px;
     grid-template-columns: 282px;

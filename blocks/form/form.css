@@ -1,12 +1,9 @@
-@import url('./__title/edit-form__title.css');
-@import url('./__submit-button/edit-form__submit-button.css');
-@import url('./__inputs/edit-form__inputs.css');
-@import url('./__field/edit-form__field.css');
-@import url('./__input/edit-form__input.css');
-.edit-form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+@import url('./__title/form__title.css');
+@import url('./__submit-button/form__submit-button.css');
+@import url('./__inputs/form__inputs.css');
+@import url('./__field/form__field.css');
+@import url('./__input/form__input.css');
+.form {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -23,7 +20,7 @@
 }
 
 @media screen and (max-width: 823px) {
-  .edit-form {
+  .form {
     padding: 20px;
   }
 }

@@ -1,4 +1,4 @@
-.edit-form__inputs {
+.form__inputs {
   margin: 0 0 23px 0;
   width: 100%;
   list-style: none;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 823px) {
-  .edit-form__inputs {
+  .form__inputs {
     margin-bottom: 0;
   }
 }
