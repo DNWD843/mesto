@@ -2,7 +2,7 @@
 @import url('./__title/card__title.css');
 @import url('./__description/card__description.css');
 @import url('./__like-button/card__like-button.css');
-@import url('./__trash-button/card__trash-button.css');
+@import url('./__delete-button/card__delete-button.css');
 .card {
   background-color: #ffffff;
   position: relative;

@@ -1,4 +1,4 @@
-.button_type_trash {
+.button_type_delete {
   border-style: none;
   background-color: rgba(0, 0, 0, 0);
   background-image: url('./../../../images/Trash.svg');
@@ -8,6 +8,6 @@
   transition: opacity .15s linear;
 }
 
-.button_type_trash:hover {
+.button_type_delete:hover {
   opacity: .6;
 }

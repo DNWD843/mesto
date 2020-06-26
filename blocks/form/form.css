@@ -4,6 +4,9 @@
 @import url('./__field/form__field.css');
 @import url('./__input/form__input.css');
 .form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
