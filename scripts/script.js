@@ -64,12 +64,12 @@
 
   // Функция открытия попапов
   function openPopup(evt) {
-    console.log(evt.target.name);
     switch (evt.target.name) {
       case 'edit-profile-button':
         nameInput.value = userName.textContent;
         jobInput.value = userJob.textContent;
         popUpEdit.classList.add('popup_opened');
+
         break;
       case 'add-photo-button':
         placeTitleInput.value = '';
@@ -78,11 +78,8 @@
         break;
       case 'photo':
         popUpViewPlaceImage.src = evt.target.src;
-        console.log(popUpViewPlaceImage);
         const currentCard = evt.target.closest('.card');
-        console.log(currentCard);
         popUpViewPlaceName.textContent = currentCard.querySelector('.card__title').textContent;
-        console.log(popUpViewPlaceName);
         popUpView.classList.add('popup_opened');
 
     }

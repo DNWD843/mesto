@@ -6,7 +6,9 @@
 @import url('./__place-image/popup__place-image.css');
 @import url('./__place-name/popup__place-name.css');
 .popup {
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -18,6 +20,9 @@
   -ms-flex-direction: column;
   flex-direction: column;
   position: fixed;
+  transition: all 0.5s ease;
+  opacity: 0;
+  visibility: hidden;
 }
 
 @media screen and (max-width: 823px) {
