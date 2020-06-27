@@ -57,10 +57,14 @@
   const userJob = userProfile.querySelector('.user-profile__user-job');
   const addButton = userProfile.querySelector('.user-profile__add-button');
 
-  const popupsList = Array.from(document.querySelectorAll('.popup'));
+  const popUpView = document.querySelector('.popup_type_view-photo');
+  const popUpViewPlaceImage = popUpView.querySelector('.popup__place-image');
+  const popUpViewPlaceName = popUpView.querySelector('.popup__place-name');
+  const popUpViewCloseButton = popUpView.querySelector('.popup__close-photo-button');
 
-  // Функция открытия попапа
+  // Функция открытия попапов
   function openPopup(evt) {
+    console.log(evt.target.name);
     switch (evt.target.name) {
       case 'edit-profile-button':
         nameInput.value = userName.textContent;
@@ -72,17 +76,21 @@
         imageLinkInput.value = '';
         popUpAdd.classList.add('popup_opened');
         break;
+      case 'photo':
+        popUpViewPlaceImage.src = evt.target.src;
+        console.log(popUpViewPlaceImage);
+        const currentCard = evt.target.closest('.card');
+        console.log(currentCard);
+        popUpViewPlaceName.textContent = currentCard.querySelector('.card__title').textContent;
+        console.log(popUpViewPlaceName);
+        popUpView.classList.add('popup_opened');
+
     }
   }
 
   // Функция закрытия попапа
-  function closePopup() {
-    popupsList.forEach(function(popup) {
-      if (popup.classList.contains('popup_opened')) {
-        popup.classList.remove('popup_opened');
-      }
-    });
-    return;
+  function closePopup(popupElement) {
+    popupElement.classList.remove('popup_opened');
   }
 
   // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
@@ -90,7 +98,7 @@
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     userName.textContent = nameInput.value;
     userJob.textContent = jobInput.value;
-    closePopup();
+    closePopup(popUpEdit);
   }
 
   function addFormSubmitHandler(evt) {
@@ -99,21 +107,31 @@
     newPhotoCard.querySelector('.card__image').src = `${imageLinkInput.value}`;
     newPhotoCard.querySelector('.card__title').textContent = `${placeTitleInput.value}`;
     photoCards.prepend(newPhotoCard);
-    closePopup();
+    closePopup(popUpAdd);
   }
 
   editButton.addEventListener('click', openPopup);
-  editFormCloseButton.addEventListener('click', closePopup);
+  editFormCloseButton.addEventListener('click', function() {
+    closePopup(popUpEdit);
+  });
   editForm.addEventListener('submit', editFormSubmitHandler);
 
   addButton.addEventListener('click', openPopup);
-  addFormCloseButton.addEventListener('click', closePopup);
+  addFormCloseButton.addEventListener('click', function() {
+    closePopup(popUpAdd);
+  });
   addForm.addEventListener('submit', addFormSubmitHandler);
 
+  popUpViewCloseButton.addEventListener('click', function() {
+    closePopup(popUpView);
+  });
+
+
+
   // ************************************************************************************
-  //КНОПКИ ЛАЙК и DELETE
-  photoCards.addEventListener('click', function(evt) {
-    if (evt.target.classList.contains('button_type_like')) {
+  //КНОПКИ ЛАЙК, DELETE, и ОТКРЫТИЕ ФОТО В ПОПАП
+  function handleClickPhotoCards(evt) {
+    if (evt.target.name === 'like-button') {
       if (evt.target.classList.contains('button_like-status_not-checked')) {
         evt.target.classList.remove('button_like-status_not-checked');
         evt.target.classList.add('button_like-status_checked');
@@ -121,12 +139,17 @@
         evt.target.classList.remove('button_like-status_checked');
         evt.target.classList.add('button_like-status_not-checked');
       }
-    } else if (evt.target.classList.contains('button_type_delete')) {
+    } else if (evt.target.name === 'delete-button') {
       evt.target.closest('.card').remove();
+    } else if (evt.target.name === 'photo') {
+      openPopup(evt);
     }
     return;
-  });
+  }
+
+  photoCards.addEventListener('click', handleClickPhotoCards);
   // ***********************************************************************************
+
 
 
 

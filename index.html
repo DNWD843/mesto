@@ -12,13 +12,13 @@
 <body class="page">
   <div class="page__container">
     <header class="header page__header">
-      <img class="header__logo" src="./images/Logo.svg" alt="логотип место Россия">
+      <img class="header__logo" src="./images/logo.svg" alt="логотип место Россия">
     </header>
 
     <main class="content page__content">
 
       <section class="user-profile content__user-profile">
-        <img class="user-profile__avatar" src="./images/Avatar.svg" alt="аватар пользователя">
+        <img class="user-profile__avatar" src="./images/avatar.svg" alt="аватар пользователя">
         <div class="user-profile__user-info">
           <h1 class="user-profile__user-name">Жак-Ив Кусто</h1>
           <button type="button" class="button button_type_edit user-profile__edit-button" name="edit-profile-button" value="Открыть форму" title="Редактировать профиль"></button>
@@ -35,7 +35,7 @@
       <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup page__overlay popup_type_edit-profile">
+    <div class="popup page__overlay page__overlay_theme_light popup_type_edit-profile">
       <div class="popup__container">
         <button type="button" class="button button_type_close popup__close-button button_close_edit-profile" name="close-edit-form" value="Закрыть форму"></button>
         <form class="form popup__form form_type_edit" name="edit-profile-form">
@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <div class="popup page__overlay popup_type_add-photo">
+    <div class="popup page__overlay page__overlay_theme_light popup_type_add-photo">
       <div class="popup__container">
         <button type="button" class="button button_type_close popup__close-button button_close_add-photo" name="close-add-form" value="Закрыть форму"></button>
         <form class="form popup__form form_type_add" name="add-photo-form">
@@ -71,10 +71,20 @@
       </div>
     </div>
 
+    <div class="popup page__overlay page__overlay_theme_dark popup_type_view-photo">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-photo-button button_close_view-photo" name="close-photo" value="Закрыть фото"></button>
+        <figure class="popup__photo-content">
+          <img class="popup__place-image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt="изображение">
+          <figcaption class="popup__place-name">Холмогорский район</figcaption>
+        </figure>
+      </div>
+    </div>
+
 
     <template id="photo-card">
 	  <li class="card photo__card">
-      <img class="card__image" src="" alt="фото">
+      <img class="card__image" src="" alt="фото" name="photo" title="Открыть изображение">
       <button type="button" class="button button_type_delete card__delete-button" name="delete-button" value="delete" title="Удалить фото"></button>
       <div class="card__description">
         <h2 class="card__title"></h2>
