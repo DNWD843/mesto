@@ -12,6 +12,7 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+<<<<<<< HEAD
   margin-top: -20px;
   /* центрую форму по вертикали без учета CloseButton */
 }
@@ -20,4 +21,6 @@
   .popup__container {
     margin-top: 0;
   }
+=======
+>>>>>>> develop
 }

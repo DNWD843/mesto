@@ -2,6 +2,8 @@
 @import url('./__header/page__header.css');
 @import url('./__content/page__content.css');
 @import url('./__overlay/page__overlay.css');
+@import url('./__overlay/_theme/page__overlay_theme_light.css');
+@import url('./__overlay/_theme/page__overlay_theme_dark.css');
 .page {
   background-color: #000000;
   font-family: 'Inter', Arial, Helvetica, sans-serif;

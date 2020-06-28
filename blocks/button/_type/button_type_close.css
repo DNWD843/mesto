@@ -4,7 +4,11 @@
   background-repeat: no-repeat;
   background-position: center;
   border-style: none;
+<<<<<<< HEAD
   background-image: url(./../../../images/Close\ Icon.svg);
+=======
+  background-image: url(./../../../images/close-icon.svg);
+>>>>>>> develop
   background-color: rgba(0, 0, 0, 0);
   -webkit-transition: opacity .15s linear;
   -o-transition: opacity .15s linear;
@@ -13,4 +17,13 @@
 
 .button_type_close:hover {
   opacity: .6;
+<<<<<<< HEAD
+=======
+}
+
+@media screen and (max-width: 823px) {
+  .button_type_close {
+    background-image: url(./../../../images/close-icon-mobile.svg);
+  }
+>>>>>>> develop
 }

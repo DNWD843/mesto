@@ -5,7 +5,11 @@
   background-position: center;
   border-style: none;
   background-color: #000000;
+<<<<<<< HEAD
   background-image: url(./../../../images/Vector-edit-2.svg);
+=======
+  background-image: url(./../../../images/vector-edit-2.svg);
+>>>>>>> develop
   border: 1px solid #ffffff;
   -webkit-transition: opacity .15s linear;
   -o-transition: opacity .15s linear;
