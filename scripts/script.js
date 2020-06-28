@@ -52,12 +52,16 @@
   const popUpViewPlaceName = popUpView.querySelector('.popup__place-name');
   const popUpViewCloseButton = popUpView.querySelector('.popup__close-photo-button');
 
-  function handleClickImage(evt) {
-    openPopup(evt);
-    return;
+
+  //Переключатель попапов
+  function togglePopup(popup) {
+    if (popup.classList.contains('popup_opened')) {
+      popup.classList.remove('popup_opened');
+    } else { popup.classList.add('popup_opened'); }
   }
 
-  function handleClickLike(evt) {
+  // Переключатель лайков
+  function toggleLike(evt) {
     if (evt.target.classList.contains('button_like-status_not-checked')) {
       evt.target.classList.remove('button_like-status_not-checked');
       evt.target.classList.add('button_like-status_checked');
@@ -65,102 +69,99 @@
       evt.target.classList.remove('button_like-status_checked');
       evt.target.classList.add('button_like-status_not-checked');
     }
-    return;
   }
 
+  //Обработчик клика по фото
+  function handleClickImage(evt) {
+    popUpViewPlaceImage.src = evt.target.src;
+    const currentCard = evt.target.closest('.card');
+    popUpViewPlaceName.textContent = currentCard.querySelector('.card__title').textContent;
+    togglePopup(popUpView);
+    return;
+  }
+  // Обработчик клика по лайку
+  function handleClickLike(evt) {
+    toggleLike(evt);
+    return;
+  }
+  // Обработчик клика по иконке "удалить"
   function handleClickDelete(evt) {
     evt.target.closest('.card').remove();
     return;
   }
 
-  initialCards.forEach(function(initialCard) {
-    const initPhotoCard = photoCardTemplate.cloneNode(true);
-    const initPhotoCardImage = initPhotoCard.querySelector('.card__image');
-    const initPhotoCardLike = initPhotoCard.querySelector('.button_type_like');
-    const initPhotoCardDelete = initPhotoCard.querySelector('.button_type_delete');
-
-    initPhotoCardImage.src = initialCard.link;
-    initPhotoCard.querySelector('.card__title').textContent = initialCard.name;
-
-    initPhotoCardImage.addEventListener('click', handleClickImage);
-    initPhotoCardLike.addEventListener('click', handleClickLike);
-    initPhotoCardDelete.addEventListener('click', handleClickDelete);
-
-    photoCards.prepend(initPhotoCard);
-    return;
-  });
-
-  // Функция открытия попапов
-  function openPopup(evt) {
-    switch (evt.target.name) {
-      case 'edit-profile-button':
-        nameInput.value = userName.textContent;
-        jobInput.value = userJob.textContent;
-        popUpEdit.classList.add('popup_opened');
-        break;
-      case 'add-photo-button':
-        placeTitleInput.value = '';
-        imageLinkInput.value = '';
-        popUpAdd.classList.add('popup_opened');
-        break;
-      case 'photo':
-        popUpViewPlaceImage.src = evt.target.src;
-        const currentCard = evt.target.closest('.card');
-        popUpViewPlaceName.textContent = currentCard.querySelector('.card__title').textContent;
-        popUpView.classList.add('popup_opened');
-        break;
-    }
-    return;
+  // Обработчик клика по кнопке "Редактировать профиль"
+  function handleClickEditButton() {
+    nameInput.value = userName.textContent;
+    jobInput.value = userJob.textContent;
+    togglePopup(popUpEdit);
   }
 
-  // Функция закрытия попапа
-  function closePopup(Popup) {
-    Popup.classList.remove('popup_opened');
+  // Обработчик клика по кнопке 
+  function handleClickAddButton() {
+    placeTitleInput.value = '';
+    imageLinkInput.value = '';
+    togglePopup(popUpAdd);
+  }
+  //функция создания новой карты
+  function createCard(title, link) {
+    const newCard = photoCardTemplate.cloneNode(true);
+    const newCardImage = newCard.querySelector('.card__image');
+    const newCardLikeButton = newCard.querySelector('.button_type_like');
+    const newCardDeleteButton = newCard.querySelector('.button_type_delete');
+    newCard.querySelector('.card__title').textContent = title;
+    newCardImage.src = link;
+    newCardImage.addEventListener('click', handleClickImage);
+    newCardLikeButton.addEventListener('click', handleClickLike);
+    newCardDeleteButton.addEventListener('click', handleClickDelete);
+    return newCard;
+  }
+  // Функция добавления новой карты на страницу
+  function addCard(card, container) {
+    const cardNode = createCard(card.title, card.link);
+    container.prepend(cardNode);
     return;
   }
+  // добавление начальных карточек на страницу
+  initialCards.forEach(initialCard => addCard({ title: initialCard.name, link: initialCard.link }, photoCards));
 
-  // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
+  // Обработчик «отправки» формы редактирования профиля
   function editFormSubmitHandler(evt) {
     evt.preventDefault();
     userName.textContent = nameInput.value;
     userJob.textContent = jobInput.value;
-    closePopup(popUpEdit);
+    togglePopup(popUpEdit);
     return;
   }
 
+  // Обработчик "отправки" формы добавления фото
   function addFormSubmitHandler(evt) {
     evt.preventDefault();
-    const newPhotoCard = photoCardTemplate.cloneNode(true);
-    const newPhotoCardImage = newPhotoCard.querySelector('.card__image');
-    const newPhotoCardLike = newPhotoCard.querySelector('.button_type_like');
-    const newPhotoCardDelete = newPhotoCard.querySelector('.button_type_delete');
-
-    newPhotoCardImage.src = `${imageLinkInput.value}`;
-    newPhotoCard.querySelector('.card__title').textContent = `${placeTitleInput.value}`;
-
-    newPhotoCardImage.addEventListener('click', handleClickImage);
-    newPhotoCardLike.addEventListener('click', handleClickLike);
-    newPhotoCardDelete.addEventListener('click', handleClickDelete);
-
-    photoCards.prepend(newPhotoCard);
-    closePopup(popUpAdd);
+    addCard({ title: placeTitleInput.value, link: imageLinkInput.value }, photoCards);
+    togglePopup(popUpAdd);
     return;
   }
 
-  editButton.addEventListener('click', openPopup);
+
+  // СЛУШАТЕЛИ НА КНОПКИ и ФОРМЫ
+  editButton.addEventListener('click', handleClickEditButton);
+
   editFormCloseButton.addEventListener('click', function() {
-    closePopup(popUpEdit);
+    togglePopup(popUpEdit);
   });
+
   editForm.addEventListener('submit', editFormSubmitHandler);
 
-  addButton.addEventListener('click', openPopup);
+  addButton.addEventListener('click', handleClickAddButton);
+
   addFormCloseButton.addEventListener('click', function() {
-    closePopup(popUpAdd);
+    togglePopup(popUpAdd);
   });
+
   addForm.addEventListener('submit', addFormSubmitHandler);
 
   popUpViewCloseButton.addEventListener('click', function() {
-    closePopup(popUpView);
+    togglePopup(popUpView);
   });
 
 })();
