@@ -10,9 +10,9 @@
 
 @media screen and (max-width: 823px) {
   .popup__close-button {
-    -webkit-transform: translate(0, 2px);
-    -ms-transform: translate(0, 2px);
-    transform: translate(0, 2px);
+    -webkit-transform: translate(33px, 7px);
+    -ms-transform: translate(33px, 7px);
+    transform: translate(33px, 7px);
     background-size: cover;
   }
 }

@@ -28,8 +28,10 @@
       </section>
 
       <section class="photo content__photo">
-        <ul class="photo__cards"></ul>
+        <ul class="photo__cards">
+        </ul>
       </section>
+
     </main>
     <footer class="footer page__footer">
       <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
@@ -84,17 +86,17 @@
 
     <template id="photo-card">
 	  <li class="card photo__card">
-      <img class="card__image" src="" alt="фото" name="photo" title="Открыть изображение">
+      <img class="card__image" src="" alt="фото" name="photo" title="Открыть фото">
       <button type="button" class="button button_type_delete card__delete-button" name="delete-button" value="delete" title="Удалить фото"></button>
       <div class="card__description">
         <h2 class="card__title"></h2>
         <button type="button" class="button button_type_like card__like-button button_like-status_not-checked" name="like-button" value="like"></button>
       </div>
     </li>
-  </template>
+    </template>
+  </div>
 
-    <script src="./scripts/script.js"></script>
+  <script src="./scripts/script.js"></script>
 </body>
-
 
 </html>

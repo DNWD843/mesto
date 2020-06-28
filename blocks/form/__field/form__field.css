@@ -2,3 +2,9 @@
   margin: 0 0 25px;
   padding: 0;
 }
+
+@media screen and (max-width: 823px) {
+  .form__field {
+    margin-bottom: 13px;
+  }
+}

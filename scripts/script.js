@@ -1,8 +1,6 @@
 (function() {
   'use strict';
 
-  // ***************************************************************************  
-  // ДОБАВЛЯЕМ НАЧАЛЬНЫЕ 6 КАРТОЧЕК, ИСПОЛЬЗУЯ ШАБЛОН
   const initialCards = [{
       name: 'Центральный ЗАГС',
       link: './images/zags.jpg',
@@ -28,17 +26,9 @@
       link: './images/kazan.jpg',
     },
   ];
-  const photoCards = document.querySelector('.photo__cards');
-  const photoCardTemplate = document.querySelector('#photo-card').content;
-  initialCards.forEach(function(initialCard) {
-    const initPhotoCard = photoCardTemplate.cloneNode(true);
-    initPhotoCard.querySelector('.card__image').src = initialCard.link;
-    initPhotoCard.querySelector('.card__title').textContent = initialCard.name;
-    photoCards.prepend(initPhotoCard);
-  });
+  const photoCards = document.querySelector('.photo__cards'); //блок куда будем вставлять карточки
+  const photoCardTemplate = document.querySelector('#photo-card').content; //шаблон
 
-  // ************************************************************************************
-  // РАБОТА С ФОРМАМИ РЕДАКТИРОВАНИЯ ПРОФИЛЯ И ДОБАВЛЕНИЯ ФОТО
   const popUpEdit = document.querySelector('.popup_type_edit-profile');
   const editForm = popUpEdit.querySelector('.form_type_edit');
   const nameInput = editForm.querySelector('.form__input_type_name');
@@ -62,6 +52,44 @@
   const popUpViewPlaceName = popUpView.querySelector('.popup__place-name');
   const popUpViewCloseButton = popUpView.querySelector('.popup__close-photo-button');
 
+  function handleClickImage(evt) {
+    openPopup(evt);
+    return;
+  }
+
+  function handleClickLike(evt) {
+    if (evt.target.classList.contains('button_like-status_not-checked')) {
+      evt.target.classList.remove('button_like-status_not-checked');
+      evt.target.classList.add('button_like-status_checked');
+    } else {
+      evt.target.classList.remove('button_like-status_checked');
+      evt.target.classList.add('button_like-status_not-checked');
+    }
+    return;
+  }
+
+  function handleClickDelete(evt) {
+    evt.target.closest('.card').remove();
+    return;
+  }
+
+  initialCards.forEach(function(initialCard) {
+    const initPhotoCard = photoCardTemplate.cloneNode(true);
+    const initPhotoCardImage = initPhotoCard.querySelector('.card__image');
+    const initPhotoCardLike = initPhotoCard.querySelector('.button_type_like');
+    const initPhotoCardDelete = initPhotoCard.querySelector('.button_type_delete');
+
+    initPhotoCardImage.src = initialCard.link;
+    initPhotoCard.querySelector('.card__title').textContent = initialCard.name;
+
+    initPhotoCardImage.addEventListener('click', handleClickImage);
+    initPhotoCardLike.addEventListener('click', handleClickLike);
+    initPhotoCardDelete.addEventListener('click', handleClickDelete);
+
+    photoCards.prepend(initPhotoCard);
+    return;
+  });
+
   // Функция открытия попапов
   function openPopup(evt) {
     switch (evt.target.name) {
@@ -69,7 +97,6 @@
         nameInput.value = userName.textContent;
         jobInput.value = userJob.textContent;
         popUpEdit.classList.add('popup_opened');
-
         break;
       case 'add-photo-button':
         placeTitleInput.value = '';
@@ -81,30 +108,43 @@
         const currentCard = evt.target.closest('.card');
         popUpViewPlaceName.textContent = currentCard.querySelector('.card__title').textContent;
         popUpView.classList.add('popup_opened');
-
+        break;
     }
+    return;
   }
 
   // Функция закрытия попапа
-  function closePopup(popupElement) {
-    popupElement.classList.remove('popup_opened');
+  function closePopup(Popup) {
+    Popup.classList.remove('popup_opened');
+    return;
   }
 
   // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
   function editFormSubmitHandler(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    evt.preventDefault();
     userName.textContent = nameInput.value;
     userJob.textContent = jobInput.value;
     closePopup(popUpEdit);
+    return;
   }
 
   function addFormSubmitHandler(evt) {
     evt.preventDefault();
     const newPhotoCard = photoCardTemplate.cloneNode(true);
-    newPhotoCard.querySelector('.card__image').src = `${imageLinkInput.value}`;
+    const newPhotoCardImage = newPhotoCard.querySelector('.card__image');
+    const newPhotoCardLike = newPhotoCard.querySelector('.button_type_like');
+    const newPhotoCardDelete = newPhotoCard.querySelector('.button_type_delete');
+
+    newPhotoCardImage.src = `${imageLinkInput.value}`;
     newPhotoCard.querySelector('.card__title').textContent = `${placeTitleInput.value}`;
+
+    newPhotoCardImage.addEventListener('click', handleClickImage);
+    newPhotoCardLike.addEventListener('click', handleClickLike);
+    newPhotoCardDelete.addEventListener('click', handleClickDelete);
+
     photoCards.prepend(newPhotoCard);
     closePopup(popUpAdd);
+    return;
   }
 
   editButton.addEventListener('click', openPopup);
@@ -122,35 +162,5 @@
   popUpViewCloseButton.addEventListener('click', function() {
     closePopup(popUpView);
   });
-
-
-
-  // ************************************************************************************
-  //КНОПКИ ЛАЙК, DELETE, и ОТКРЫТИЕ ФОТО В ПОПАП
-  function handleClickPhotoCards(evt) {
-    if (evt.target.name === 'like-button') {
-      if (evt.target.classList.contains('button_like-status_not-checked')) {
-        evt.target.classList.remove('button_like-status_not-checked');
-        evt.target.classList.add('button_like-status_checked');
-      } else {
-        evt.target.classList.remove('button_like-status_checked');
-        evt.target.classList.add('button_like-status_not-checked');
-      }
-    } else if (evt.target.name === 'delete-button') {
-      evt.target.closest('.card').remove();
-    } else if (evt.target.name === 'photo') {
-      openPopup(evt);
-    }
-    return;
-  }
-
-  photoCards.addEventListener('click', handleClickPhotoCards);
-  // ***********************************************************************************
-
-
-
-
-
-
 
 })();

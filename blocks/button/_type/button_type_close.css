@@ -14,3 +14,9 @@
 .button_type_close:hover {
   opacity: .6;
 }
+
+@media screen and (max-width: 823px) {
+  .button_type_close {
+    background-image: url(./../../../images/close-icon-mobile.svg);
+  }
+}

@@ -15,6 +15,7 @@
 @media screen and (max-width: 823px) {
   .form__input {
     font-size: 12px;
-    line-height: 1.21;
+    line-height: 1.25;
+    padding-bottom: 9px;
   }
 }

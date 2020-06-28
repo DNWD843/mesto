@@ -20,6 +20,8 @@
   -ms-flex-direction: column;
   flex-direction: column;
   position: fixed;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   opacity: 0;
   visibility: hidden;

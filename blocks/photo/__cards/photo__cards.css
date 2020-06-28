@@ -8,6 +8,7 @@
   display: grid;
   grid-template-columns: repeat(3, 282px);
   grid-template-rows: repeat(2, 360px);
+  grid-auto-rows: 360px;
   grid-column-gap: 18px;
   grid-row-gap: 21px;
   color: #000000;
