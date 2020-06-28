@@ -1,3 +1,31 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+.photo__cards {
+  width: 100%;
+  max-width: 882px;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  grid-column-gap: 18px;
+  grid-row-gap: 21px;
+  color: #000000;
+}
+
+@media screen and (max-width:320px) {
+  .photo__cards {
+    -ms-grid-columns: 282px;
+    grid-template-columns: 282px;
+    grid-row-gap: 20px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+=======
+>>>>>>> 7f51fd88894c385bcef447a1835bb2f13ebad69f
 .photo__cards {
   width: 100%;
   max-width: 882px;
@@ -32,4 +60,8 @@
     -ms-flex-pack: center;
     justify-content: center;
   }
+<<<<<<< HEAD
+=======
+>>>>>>> develop
+>>>>>>> 7f51fd88894c385bcef447a1835bb2f13ebad69f
 }
