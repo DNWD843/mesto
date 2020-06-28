@@ -4,15 +4,7 @@
   background-repeat: no-repeat;
   background-position: center;
   border-style: none;
-<<<<<<< HEAD
   background-image: url(./../../../images/close-icon.svg);
-=======
-<<<<<<< HEAD
-  background-image: url(./../../../images/Close\ Icon.svg);
-=======
-  background-image: url(./../../../images/close-icon.svg);
->>>>>>> develop
->>>>>>> 7f51fd88894c385bcef447a1835bb2f13ebad69f
   background-color: rgba(0, 0, 0, 0);
   -webkit-transition: opacity .15s linear;
   -o-transition: opacity .15s linear;
@@ -21,19 +13,10 @@
 
 .button_type_close:hover {
   opacity: .6;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 7f51fd88894c385bcef447a1835bb2f13ebad69f
 }
 
 @media screen and (max-width: 823px) {
   .button_type_close {
     background-image: url(./../../../images/close-icon-mobile.svg);
   }
-<<<<<<< HEAD
-=======
->>>>>>> develop
->>>>>>> 7f51fd88894c385bcef447a1835bb2f13ebad69f
 }

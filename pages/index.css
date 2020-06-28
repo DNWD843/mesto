@@ -9,13 +9,5 @@
 @import url('./../blocks/card/card.css');
 @import url('./../blocks/footer/footer.css');
 @import url('./../blocks/popup/popup.css');
-<<<<<<< HEAD
 @import url('./../blocks/form/form.css');
-=======
-<<<<<<< HEAD
-@import url('./../blocks/edit-form/edit-form.css');
-=======
-@import url('./../blocks/form/form.css');
->>>>>>> develop
->>>>>>> 7f51fd88894c385bcef447a1835bb2f13ebad69f
 @import url('./../blocks/popup/_opened/popup_opened.css');
