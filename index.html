@@ -12,94 +12,91 @@
 <body class="page">
   <div class="page__container">
     <header class="header page__header">
-      <img class="header__logo" src="./images/Logo.svg" alt="логотип место Россия">
+      <img class="header__logo" src="./images/logo.svg" alt="логотип место Россия">
     </header>
 
     <main class="content page__content">
 
       <section class="user-profile content__user-profile">
-        <img class="user-profile__avatar" src="./images/Avatar.svg" alt="аватар пользователя">
+        <img class="user-profile__avatar" src="./images/avatar.svg" alt="аватар пользователя">
         <div class="user-profile__user-info">
           <h1 class="user-profile__user-name">Жак-Ив Кусто</h1>
-          <button type="button" class="button button_type_edit user-profile__edit-button" name="open-form" value="Открыть форму"></button>
+          <button type="button" class="button button_type_edit user-profile__edit-button" name="edit-profile-button" value="Открыть форму" title="Редактировать профиль"></button>
           <p class="user-profile__user-job">Исследователь океана</p>
         </div>
-        <button type="button" class="button button_type_add user-profile__add-button" name="add-button" value="Добавить фото"></button>
+        <button type="button" class="button button_type_add user-profile__add-button" name="add-photo-button" value="Добавить фото" title="Добавить фото"></button>
       </section>
 
       <section class="photo content__photo">
         <ul class="photo__cards">
-          <li class="card photo__card">
-            <img class="card__image" src="./images/sea-star.jpg" alt="фото морской звезды">
-            <div class="card__description">
-              <h2 class="card__title">Морская звезда</h2>
-              <button type="button" class="button button_type_like card__button" name="like-button" value="like"></button>
-            </div>
-          </li>
-          <li class="card photo__card">
-            <img class="card__image" src="./images/coral-reef2.jpg" alt="фото кораллового рифа">
-            <div class="card__description">
-              <h2 class="card__title">Коралловый риф</h2>
-              <button type="button" class="button button_type_like card__button" name="like-button" value="like"></button>
-            </div>
-          </li>
-          <li class="card photo__card">
-            <img class="card__image" src="./images/dolphin2.jpg" alt="фото дельфина">
-            <div class="card__description">
-              <h2 class="card__title">Дельфин</h2>
-              <button type="button" class="button button_type_like card__button" name="like-button" value="like"></button>
-            </div>
-          </li>
-          <li class="card photo__card">
-            <img class="card__image" src="./images/manta2.jpg" alt="фото ската">
-            <div class="card__description">
-              <h2 class="card__title">Скат</h2>
-              <button type="button" class="button button_type_like card__button" name="like-button" value="like"></button>
-            </div>
-          </li>
-          <li class="card photo__card">
-            <img class="card__image" src="./images/whale2.jpg" alt="фото кита">
-            <div class="card__description">
-              <h2 class="card__title">Кит</h2>
-              <button type="button" class="button button_type_like card__button" name="like-button" value="like"></button>
-            </div>
-          </li>
-          <li class="card photo__card">
-            <img class="card__image" src="./images/white-shark2.jpg" alt="фото белой акулы">
-            <div class="card__description">
-              <h2 class="card__title">Большая белая акула</h2>
-              <button type="button" class="button button_type_like card__button" name="like-button" value="like"></button>
-            </div>
-          </li>
         </ul>
       </section>
+
     </main>
     <footer class="footer page__footer">
       <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup page__overlay">
+    <div class="popup page__overlay page__overlay_theme_light popup_type_edit-profile">
       <div class="popup__container">
-        <button type="button" class="button button_type_close popup__close-button" name="close-form" value="Закрыть форму"></button>
-        <form name="popup-form" class="edit-form popup__form">
-          <h2 class="edit-form__title">Редактировать профиль</h2>
-          <ul class="edit-form__inputs">
-            <li class="edit-form__field">
-              <input type="text" class="edit-form__input edit-form__input_type_name" name="user-name" id="user-name" value="Жак-Ив Кусто" required>
+        <button type="button" class="button button_type_close popup__close-button button_close_edit-profile" name="close-edit-form" value="Закрыть форму"></button>
+        <form class="form popup__form form_type_edit" name="edit-profile-form">
+          <h2 class="form__title">Редактировать профиль</h2>
+          <ul class="form__inputs">
+            <li class="form__field">
+              <input type="text" class="form__input form__input_type_name" name="user-name" id="user-name" value="Жак-Ив Кусто" required>
             </li>
-            <li class="edit-form__field">
-              <input type="text" class="edit-form__input edit-form__input_type_job" name="user-job" id="user-job" value="Исследователь океана" required>
+            <li class="form__field">
+              <input type="text" class="form__input form__input_type_job" name="user-job" id="user-job" value="Исследователь океана" required>
             </li>
           </ul>
-          <button type="submit" class="button button_type_submit edit-form__submit-button" name="submit-button" value="Сохранить">Сохранить</button>
+          <button type="submit" class="button button_type_submit form__submit-button" name="save-profile-button" value="Сохранить">Сохранить</button>
         </form>
       </div>
     </div>
 
+    <div class="popup page__overlay page__overlay_theme_light popup_type_add-photo">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-button button_close_add-photo" name="close-add-form" value="Закрыть форму"></button>
+        <form class="form popup__form form_type_add" name="add-photo-form">
+          <h2 class="form__title">Новое место</h2>
+          <ul class="form__inputs">
+            <li class="form__field">
+              <input type="text" class="form__input form__input_type_place-title" name="place-title" id="place-title" value="" placeholder="Название" required>
+            </li>
+            <li class="form__field">
+              <input type="text" class="form__input form__input_type_image-link" name="image-link" id="image-link" value="" placeholder="Ссылка на картинку" required>
+            </li>
+          </ul>
+          <button type="submit" class="button button_type_submit form__submit-button" name="create-card-button" value="Создать">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup page__overlay page__overlay_theme_dark popup_type_view-photo">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-photo-button button_close_view-photo" name="close-photo" value="Закрыть фото"></button>
+        <figure class="popup__photo-content">
+          <img class="popup__place-image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt="изображение">
+          <figcaption class="popup__place-name">Холмогорский район</figcaption>
+        </figure>
+      </div>
+    </div>
+
+
+    <template id="photo-card">
+	  <li class="card photo__card">
+      <img class="card__image" src="" alt="фото" name="photo" title="Открыть фото">
+      <button type="button" class="button button_type_delete card__delete-button" name="delete-button" value="delete" title="Удалить фото"></button>
+      <div class="card__description">
+        <h2 class="card__title"></h2>
+        <button type="button" class="button button_type_like card__like-button button_like-status_not-checked" name="like-button" value="like"></button>
+      </div>
+    </li>
+    </template>
   </div>
 
   <script src="./scripts/script.js"></script>
 </body>
-
 
 </html>

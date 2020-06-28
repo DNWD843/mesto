@@ -1,0 +1,18 @@
+.popup__close-photo-button {
+  width: 41px;
+  height: 41px;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  -webkit-transform: translate(41px, 0px);
+  -ms-transform: translate(41px, 0px);
+  transform: translate(41px, 0px);
+}
+
+@media screen and (max-width: 823px) {
+  .popup__close-photo-button {
+    -webkit-transform: translate(35px, 5px);
+    -ms-transform: translate(35px, 5px);
+    transform: translate(35px, 5px);
+    background-size: cover;
+  }
+}

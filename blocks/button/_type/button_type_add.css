@@ -6,7 +6,7 @@
   background-position: center;
   border-style: none;
   border: 2px solid white;
-  background-image: url(./../../../images/Vector-Add.svg);
+  background-image: url(./../../../images/vector-add.svg);
   background-color: #000000;
   -webkit-transition: opacity .15s linear;
   -o-transition: opacity .15s linear;
@@ -19,6 +19,6 @@
 
 @media screen and (max-width: 720px) {
   .button_type_add {
-    background-image: url(./../../../images/Vector-Add-Mobile.svg);
+    background-image: url(./../../../images/vector-add-mobile.svg);
   }
 }

@@ -3,6 +3,9 @@
 @import url('./_type/button_type_submit.css');
 @import url('./_type/button_type_like.css');
 @import url('./_type/button_type_add.css');
+@import url('./_type/button_type_delete.css');
+@import url('./_like-status/button_like-status_not-checked.css');
+@import url('./_like-status/button_like-status_checked.css');
 .button {
   outline: none;
   padding: 0;
