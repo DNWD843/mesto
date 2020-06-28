@@ -11,19 +11,3 @@
   object-position: center;
   cursor: pointer;
 }
-
-
-/*
-@media screen and (max-width: 960px) {
-  .card__image {
-    height: calc((100vw - 18px - 19px*2)/2);
-    max-height: 413px;
-  }
-}
-
-@media screen and (max-width: 619px) {
-  .card__image {
-    height: calc(100vw - 19px*2);
-    max-height: 581.2px;
-  }
-}*/

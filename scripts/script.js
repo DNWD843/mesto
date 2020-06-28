@@ -55,20 +55,13 @@
 
   //Переключатель попапов
   function togglePopup(popup) {
-    if (popup.classList.contains('popup_opened')) {
-      popup.classList.remove('popup_opened');
-    } else { popup.classList.add('popup_opened'); }
+    popup.classList.toggle('popup_opened');
   }
 
   // Переключатель лайков
   function toggleLike(evt) {
-    if (evt.target.classList.contains('button_like-status_not-checked')) {
-      evt.target.classList.remove('button_like-status_not-checked');
-      evt.target.classList.add('button_like-status_checked');
-    } else {
-      evt.target.classList.remove('button_like-status_checked');
-      evt.target.classList.add('button_like-status_not-checked');
-    }
+    evt.target.classList.toggle('button_like-status_checked');
+    evt.target.classList.toggle('button_like-status_not-checked');
   }
 
   //Обработчик клика по фото
