@@ -26,6 +26,7 @@ const popUpViewCloseButton = popUpView.querySelector('.popup__close-photo-button
 
 //Переключатель попапов
 function togglePopup(popup) {
+  document.activeElement.blur();
   popup.classList.toggle('popup_opened');
 }
 
