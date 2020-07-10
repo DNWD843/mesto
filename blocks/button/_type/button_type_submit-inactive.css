@@ -15,4 +15,5 @@
 .button_type_submit-inactive:hover {
   background-color: #fff;
   opacity: .2;
+  cursor: default;
 }

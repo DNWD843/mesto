@@ -67,28 +67,26 @@ function handleClickDelete(evt) {
 
 //функция очистки старых ошибок в форме и приведения кнопки в соответствующее состояние
 //после закрытия формы крестиком (если юзер закрыл невалидную форму)
-function clearErrors(form) {
+/*function clearErrors(form, inputErrorClass, errorClass, inactiveButtonClass) {
   const formInputs = Array.from(form.querySelectorAll('.form__input'));
-  const buttonElement = form.querySelector('.form__submit-button');
+  const buttonSubmit = form.querySelector('.form__submit-button');
   formInputs.forEach(function(inputElement) {
-    hideInputError(form, inputElement);
+    hideInputError(form, inputElement, inputErrorClass, errorClass);
   });
-  toggleButtonState(formInputs, buttonElement);
-}
+  toggleButtonState(formInputs, buttonSubmit, inactiveButtonClass);
+} 
+*/
+
 // Обработчик клика по кнопке "Редактировать профиль"
 function handleClickEditButton() {
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
-  //здесь надо очистить старые ошибки
-  clearErrors(editForm);
   togglePopup(popUpEdit);
 }
 
 // Обработчик клика по кнопке 
 function handleClickAddButton() {
   addForm.reset();
-  //здесь надо очистить старые ошибки
-  clearErrors(addForm);
   togglePopup(popUpAdd);
 }
 
@@ -137,7 +135,7 @@ function addFormSubmitHandler(evt) {
 // СЛУШАТЕЛИ НА КНОПКИ и ФОРМЫ
 editButton.addEventListener('click', handleClickEditButton);
 
-editFormCloseButton.addEventListener('click', function() {
+editFormCloseButton.addEventListener('click', () => {
   togglePopup(popUpEdit);
 });
 
@@ -145,25 +143,23 @@ editForm.addEventListener('submit', editFormSubmitHandler);
 
 addButton.addEventListener('click', handleClickAddButton);
 
-addFormCloseButton.addEventListener('click', function() {
+addFormCloseButton.addEventListener('click', () => {
   togglePopup(popUpAdd);
 });
 
 addForm.addEventListener('submit', addFormSubmitHandler);
 
-popUpViewCloseButton.addEventListener('click', function() {
+popUpViewCloseButton.addEventListener('click', () => {
   togglePopup(popUpView);
 });
-
 overlaysList.forEach((overlay) => {
-  overlay.addEventListener('click', function(evt) {
+  overlay.addEventListener('click', (evt) => {
     if (evt.target === evt.currentTarget) {
       togglePopup(overlay);
     }
   });
 });
-
-document.addEventListener('keydown', function(evt) {
+document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape') {
     overlaysList.forEach((overlay) => {
       if (overlay.classList.contains('popup_opened')) {
