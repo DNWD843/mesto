@@ -2,15 +2,15 @@ const photoCards = document.querySelector('.photo__cards'); //блок куда 
 const photoCardTemplate = document.querySelector('#photo-card').content; //шаблон
 
 const popUpEdit = document.querySelector('.popup_type_edit-profile');
-const editForm = popUpEdit.querySelector('.form_type_edit');
-const nameInput = editForm.querySelector('.form__input_type_name');
-const jobInput = editForm.querySelector('.form__input_type_job');
+const editForm = document.forms['edit-profile-form'];
+const nameInput = editForm.elements['user-name-input'];
+const jobInput = editForm.elements['user-job-input'];
 const editFormCloseButton = popUpEdit.querySelector('.button_close_edit-profile');
 
 const popUpAdd = document.querySelector('.popup_type_add-photo');
-const addForm = popUpAdd.querySelector('.form_type_add');
-const placeTitleInput = addForm.querySelector('.form__input_type_place-title');
-const imageLinkInput = addForm.querySelector('.form__input_type_image-link');
+const addForm = document.forms['add-photo-form'];
+const placeTitleInput = addForm.elements['place-title-input'];
+const imageLinkInput = addForm.elements['image-link-input'];
 const addFormCloseButton = popUpAdd.querySelector('.button_close_add-photo');
 
 const userProfile = document.querySelector('.user-profile');
@@ -24,10 +24,42 @@ const popUpViewPlaceImage = popUpView.querySelector('.popup__place-image');
 const popUpViewPlaceName = popUpView.querySelector('.popup__place-name');
 const popUpViewCloseButton = popUpView.querySelector('.popup__close-photo-button');
 
-//Переключатель попапов
+const overlaysList = Array.from(document.querySelectorAll('.page__overlay'));
+
+//функция установки/снятия слушателей на оверлей
+function toggleOverlayListenersState(popup) {
+  if (popup.classList.contains('popup_opened')) {
+    popup.addEventListener('click', handleClickOnOverlay);
+    document.addEventListener('keydown', handlePressEscapeButton);
+  } else {
+    popup.removeEventListener('click', handleClickOnOverlay);
+    document.removeEventListener('keydown', handlePressEscapeButton);
+  }
+}
+
+//функция открытия/закрытия попапов
 function togglePopup(popup) {
   document.activeElement.blur();
   popup.classList.toggle('popup_opened');
+  toggleOverlayListenersState(popup);
+}
+
+//обработчик нажатия на Esc
+function handlePressEscapeButton(evt) {
+  if (evt.key === 'Escape') {
+    overlaysList.forEach((overlay) => {
+      if (overlay.classList.contains('popup_opened')) {
+        togglePopup(overlay);
+      }
+    });
+  }
+}
+
+//обработчик клика по оверлею
+function handleClickOnOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    togglePopup(evt.target);
+  }
 }
 
 // Переключатель лайков
@@ -64,10 +96,9 @@ function handleClickEditButton() {
   togglePopup(popUpEdit);
 }
 
-// Обработчик клика по кнопке 
+// Обработчик клика по кнопке "Добавить фото"
 function handleClickAddButton() {
-  placeTitleInput.value = '';
-  imageLinkInput.value = '';
+  addForm.reset();
   togglePopup(popUpAdd);
 }
 
@@ -79,6 +110,7 @@ function createCard(title, link) {
   const newCardDeleteButton = newCard.querySelector('.button_type_delete');
   newCard.querySelector('.card__title').textContent = title;
   newCardImage.src = link;
+  newCardImage.alt = title;
   newCardImage.addEventListener('click', handleClickImage);
   newCardLikeButton.addEventListener('click', handleClickLike);
   newCardDeleteButton.addEventListener('click', handleClickDelete);
@@ -96,8 +128,7 @@ function addCard(card, container) {
 initialCards.forEach(initialCard => addCard({ title: initialCard.name, link: initialCard.link }, photoCards));
 
 // Обработчик «отправки» формы редактирования профиля
-function editFormSubmitHandler(evt) {
-  evt.preventDefault();
+function editFormSubmitHandler() {
   userName.textContent = nameInput.value;
   userJob.textContent = jobInput.value;
   togglePopup(popUpEdit);
@@ -105,8 +136,7 @@ function editFormSubmitHandler(evt) {
 }
 
 // Обработчик "отправки" формы добавления фото
-function addFormSubmitHandler(evt) {
-  evt.preventDefault();
+function addFormSubmitHandler() {
   addCard({ title: placeTitleInput.value, link: imageLinkInput.value }, photoCards);
   togglePopup(popUpAdd);
   return;
@@ -115,7 +145,7 @@ function addFormSubmitHandler(evt) {
 // СЛУШАТЕЛИ НА КНОПКИ и ФОРМЫ
 editButton.addEventListener('click', handleClickEditButton);
 
-editFormCloseButton.addEventListener('click', function() {
+editFormCloseButton.addEventListener('click', () => {
   togglePopup(popUpEdit);
 });
 
@@ -123,12 +153,12 @@ editForm.addEventListener('submit', editFormSubmitHandler);
 
 addButton.addEventListener('click', handleClickAddButton);
 
-addFormCloseButton.addEventListener('click', function() {
+addFormCloseButton.addEventListener('click', () => {
   togglePopup(popUpAdd);
 });
 
 addForm.addEventListener('submit', addFormSubmitHandler);
 
-popUpViewCloseButton.addEventListener('click', function() {
+popUpViewCloseButton.addEventListener('click', () => {
   togglePopup(popUpView);
 });
