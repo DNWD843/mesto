@@ -25,7 +25,7 @@ function isInputValid(formElement, inputElement, inputErrorClass, errorClass) {
 
 //фнукция проверки наличия невалидных инпутов
 function hasInvalidInput(inputList) {
-  return inputList.some(function(inputElement) {
+  return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
@@ -41,10 +41,18 @@ function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   }
 }
 
-//функция установки слушателей на инпуты форм
+//функция сброса валидации
+function resetValidation(inputList, buttonElement, formElement, inputErrorClass, errorClass, inactiveButtonClass) {
+  inputList.forEach((input) => {
+    hideInputError(formElement, input, inputErrorClass, errorClass);
+  });
+  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+}
+//функция установки слушателей 
 function setEventListeners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass) {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
+  const openFormButton = document.querySelector(`#${formElement.name}-button`);
   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
@@ -52,34 +60,9 @@ function setEventListeners(formElement, inputSelector, submitButtonSelector, ina
       toggleButtonState(inputList, buttonElement, inactiveButtonClass);
     });
   });
-}
-
-//функция очистки формы от ошибок, оставшихся после закрытия невалидной формы
-/*function prepareForm(form, inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass) {
-  const formInputs = Array.from(form.querySelectorAll(inputSelector));
-  const buttonSubmit = form.querySelector(submitButtonSelector);
-  formInputs.forEach((input) => {
-    hideInputError(form, input, inputErrorClass, errorClass);
+  openFormButton.addEventListener('click', () => {
+    resetValidation(inputList, buttonElement, formElement, inputErrorClass, errorClass, inactiveButtonClass);
   });
-  toggleButtonState(formInputs, buttonSubmit, inactiveButtonClass);
-}
-*/
-
-//функция очистки формы от ошибок, оставшихся после закрытия невалидной формы
-//(т.к. валидация формы начнется только после первого нажатия на кнопку пользователем)
-function clearErrors(form, inputErrorClass, errorClass, inputSelector) {
-  const formInputs = Array.from(form.querySelectorAll(inputSelector));
-  formInputs.forEach((input) => {
-    hideInputError(form, input, inputErrorClass, errorClass);
-  });
-}
-
-//функция актуализации кнопки submit при открытии формы (т.к. валидация формы и контроль состояния 
-//кнопки начнутся только после первого нажатия на кнопку пользователем)
-function actualizeSubmitButton(form, inputSelector, submitButtonSelector, inactiveButtonClass) {
-  const formInputs = Array.from(form.querySelectorAll(inputSelector));
-  const buttonSubmit = form.querySelector(submitButtonSelector);
-  toggleButtonState(formInputs, buttonSubmit, inactiveButtonClass);
 }
 
 //функция запуска проверки валидности форм
@@ -93,27 +76,10 @@ function enableValidation({
 }) {
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function(evt) {
+    formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
     setEventListeners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass);
-  });
-
-  //чтобы не пугать пользователя наличием ошибок (невалидных полей) сразу после открытия формы но до того,
-  //как он что-то успел нажать, очистим формы от возможных ошибок и актуализируем кнопку submit
-
-  // подготовка формы редактирования профиля к новой валидации
-  editButton.addEventListener('click', function() {
-    /*prepareForm(editForm, inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass);*/
-    clearErrors(editForm, inputErrorClass, errorClass, inputSelector);
-    actualizeSubmitButton(editForm, inputSelector, submitButtonSelector, inactiveButtonClass);
-  });
-
-  // подготовка формы добавления фотокарточки к новой валидации
-  addButton.addEventListener('click', function() {
-    /*prepareForm(addForm, inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass);*/
-    clearErrors(addForm, inputErrorClass, errorClass, inputSelector);
-    actualizeSubmitButton(addForm, inputSelector, submitButtonSelector, inactiveButtonClass);
   });
 }
 
