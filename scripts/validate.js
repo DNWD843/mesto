@@ -48,6 +48,7 @@ function resetValidation(inputList, buttonElement, formElement, inputErrorClass,
   });
   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
 }
+
 //функция установки слушателей 
 function setEventListeners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass) {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));

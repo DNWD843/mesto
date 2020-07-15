@@ -26,22 +26,19 @@ const popUpViewCloseButton = popUpView.querySelector('.popup__close-photo-button
 
 const overlaysList = Array.from(document.querySelectorAll('.page__overlay'));
 
-//функция установки/снятия слушателей на оверлей
-function toggleOverlayListenersState(popup) {
-  if (popup.classList.contains('popup_opened')) {
-    popup.addEventListener('click', handleClickOnOverlay);
-    document.addEventListener('keydown', handlePressEscapeButton);
-  } else {
-    popup.removeEventListener('click', handleClickOnOverlay);
-    document.removeEventListener('keydown', handlePressEscapeButton);
-  }
+//функция открытия попапа
+function openPopup(popup) {
+  document.activeElement.blur();
+  popup.classList.add('popup_opened');
+  popup.addEventListener('click', handleClickOnOverlay);
+  document.addEventListener('keydown', handlePressEscapeButton);
 }
 
-//функция открытия/закрытия попапов
-function togglePopup(popup) {
-  document.activeElement.blur();
-  popup.classList.toggle('popup_opened');
-  toggleOverlayListenersState(popup);
+//функция закрытия попапа
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  popup.removeEventListener('click', handleClickOnOverlay);
+  document.removeEventListener('keydown', handlePressEscapeButton);
 }
 
 //обработчик нажатия на Esc
@@ -49,7 +46,7 @@ function handlePressEscapeButton(evt) {
   if (evt.key === 'Escape') {
     overlaysList.forEach((overlay) => {
       if (overlay.classList.contains('popup_opened')) {
-        togglePopup(overlay);
+        closePopup(overlay);
       }
     });
   }
@@ -58,7 +55,7 @@ function handlePressEscapeButton(evt) {
 //обработчик клика по оверлею
 function handleClickOnOverlay(evt) {
   if (evt.target === evt.currentTarget) {
-    togglePopup(evt.target);
+    closePopup(evt.target);
   }
 }
 
@@ -73,7 +70,7 @@ function handleClickImage(evt) {
   popUpViewPlaceImage.src = evt.target.src;
   const currentCard = evt.target.closest('.card');
   popUpViewPlaceName.textContent = currentCard.querySelector('.card__title').textContent;
-  togglePopup(popUpView);
+  openPopup(popUpView);
   return;
 }
 
@@ -93,13 +90,13 @@ function handleClickDelete(evt) {
 function handleClickEditButton() {
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
-  togglePopup(popUpEdit);
+  openPopup(popUpEdit);
 }
 
 // Обработчик клика по кнопке "Добавить фото"
 function handleClickAddButton() {
   addForm.reset();
-  togglePopup(popUpAdd);
+  openPopup(popUpAdd);
 }
 
 //функция создания новой карты
@@ -131,14 +128,14 @@ initialCards.forEach(initialCard => addCard({ title: initialCard.name, link: ini
 function editFormSubmitHandler() {
   userName.textContent = nameInput.value;
   userJob.textContent = jobInput.value;
-  togglePopup(popUpEdit);
+  closePopup(popUpEdit);
   return;
 }
 
 // Обработчик "отправки" формы добавления фото
 function addFormSubmitHandler() {
   addCard({ title: placeTitleInput.value, link: imageLinkInput.value }, photoCards);
-  togglePopup(popUpAdd);
+  closePopup(popUpAdd);
   return;
 }
 
@@ -146,7 +143,7 @@ function addFormSubmitHandler() {
 editButton.addEventListener('click', handleClickEditButton);
 
 editFormCloseButton.addEventListener('click', () => {
-  togglePopup(popUpEdit);
+  closePopup(popUpEdit);
 });
 
 editForm.addEventListener('submit', editFormSubmitHandler);
@@ -154,11 +151,11 @@ editForm.addEventListener('submit', editFormSubmitHandler);
 addButton.addEventListener('click', handleClickAddButton);
 
 addFormCloseButton.addEventListener('click', () => {
-  togglePopup(popUpAdd);
+  closePopup(popUpAdd);
 });
 
 addForm.addEventListener('submit', addFormSubmitHandler);
 
 popUpViewCloseButton.addEventListener('click', () => {
-  togglePopup(popUpView);
+  closePopup(popUpView);
 });
