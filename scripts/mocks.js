@@ -1,4 +1,4 @@
-const initialCards = [{
+export default [{
     name: 'Центральный ЗАГС',
     link: './images/zags.jpg',
   },
