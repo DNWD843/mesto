@@ -3,7 +3,6 @@ import initialCards from './mocks.js';
 import FormValidator from './FormValidator.js';
 
 const photoCards = document.querySelector('.photo__cards'); //блок куда будем вставлять карточки
-const photoCardTemplate = document.querySelector('#photo-card').content; //шаблон
 
 const popUpEdit = document.querySelector('.popup_type_edit-profile');
 export const editForm = document.forms['edit-profile-form'];
