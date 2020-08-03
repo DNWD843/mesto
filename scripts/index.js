@@ -1,91 +1,77 @@
-import initialCards from './mocks.js';
+import initialCards from './constants/mocks.js';
 import {
-  photoCards,
-  popUpEdit,
   editForm,
   nameInput,
   jobInput,
-  editFormCloseButton,
-  popUpAdd,
-  addForm,
   placeTitleInput,
   imageLinkInput,
-  addFormCloseButton,
+  addForm,
   editButton,
-  userName,
-  userJob,
   addButton,
-  popUpView,
-  popUpViewCloseButton,
   validationConfig
-} from './constants.js';
-import {
-  closePopup,
-  openPopup
-} from './utils.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+} from './constants/constants.js';
+import Card from './components/Card.js';
+import FormValidator from './components/FormValidator.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
+import Section from './components/Section.js';
 
+const userData = new UserInfo('.user-profile__user-name', '.user-profile__user-job');
 const formEditValidator = new FormValidator(validationConfig, editForm);
 const formAddValidator = new FormValidator(validationConfig, addForm);
+const viewPopup = new PopupWithImage('.popup_type_view-photo');
+const editPopup = new PopupWithForm({
+    formSubmitCallback: (newData) => {
+      userData.setUserInfo({ name: newData[nameInput.name], job: newData[jobInput.name] });
+      editPopup.close();
+    }
+  },
+  '.popup_type_edit-profile');
 
-//функция добавления карточки на страницу
-function addCard(card, container) {
-  const cardNode = new Card(card, '.card-template');
-  const cardElement = cardNode.generateCard();
-  container.prepend(cardElement);
-}
+const addPopup = new PopupWithForm({
+    formSubmitCallback: (newData) => {
+      const cardNode = new Card({
+          data: { title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] },
+          handleCardClick: (evt) => viewPopup.open(evt)
+        },
+        '#card-template');
+      const cardElement = cardNode.generateCard();
+      cardsContainer.addItem(cardElement);
+      addPopup.close();
+    }
+  },
+  '.popup_type_add-photo');
 
-// добавление начальных карточек на страницу
-initialCards.forEach(initialCard => addCard({ title: initialCard.name, link: initialCard.link }, photoCards));
+const cardsContainer = new Section({
+    items: initialCards,
+    renderer: ({ title, link }) => {
+      const cardNode = new Card({
+          data: { title, link },
+          handleCardClick: (evt) => viewPopup.open(evt)
+        },
+        '#card-template');
+      const cardElement = cardNode.generateCard();
+      cardsContainer.addItem(cardElement);
+    }
+  },
+  '.photo__cards');
 
-// Обработчик клика по кнопке "Редактировать профиль"
-function handleClickEditButton() {
-  nameInput.value = userName.textContent;
-  jobInput.value = userJob.textContent;
-  openPopup(popUpEdit);
-}
-
-// Обработчик клика по кнопке "Добавить фото"
-function handleClickAddButton() {
-  addForm.reset();
-  openPopup(popUpAdd);
-}
-
-// Обработчик «отправки» формы редактирования профиля
-function editFormSubmitHandler() {
-  userName.textContent = nameInput.value;
-  userJob.textContent = jobInput.value;
-  closePopup(popUpEdit);
-}
-
-// Обработчик "отправки" формы добавления фото
-function addFormSubmitHandler() {
-  addCard({ title: placeTitleInput.value, link: imageLinkInput.value }, photoCards);
-  closePopup(popUpAdd);
-}
-
-// СЛУШАТЕЛИ НА КНОПКИ и ФОРМЫ
-editButton.addEventListener('click', handleClickEditButton);
-
-editFormCloseButton.addEventListener('click', () => {
-  closePopup(popUpEdit);
+// СЛУШАТЕЛИ НА КНОПКИ
+editButton.addEventListener('click', () => {
+  const { name, job } = userData.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = job;
+  editPopup.open();
 });
 
-editForm.addEventListener('submit', editFormSubmitHandler);
-
-addButton.addEventListener('click', handleClickAddButton);
-
-addFormCloseButton.addEventListener('click', () => {
-  closePopup(popUpAdd);
-});
-
-addForm.addEventListener('submit', addFormSubmitHandler);
-
-popUpViewCloseButton.addEventListener('click', () => {
-  closePopup(popUpView);
-});
+addButton.addEventListener('click', () => addPopup.open());
 
 //запускаем валидацию форм
 formEditValidator.enableValidation();
 formAddValidator.enableValidation();
+
+viewPopup.generate();
+editPopup.generate();
+addPopup.generate();
+cardsContainer.render();

@@ -9,8 +9,8 @@
   grid-template-columns: repeat(3, 282px);
   grid-template-rows: repeat(2, 360px);
   grid-auto-rows: 360px;
-  grid-column-gap: 18px;
-  grid-row-gap: 21px;
+  column-gap: 18px;
+  row-gap: 21px;
   color: #000000;
 }
 
@@ -27,7 +27,7 @@
   .photo__cards {
     -ms-grid-columns: 282px;
     grid-template-columns: 282px;
-    grid-row-gap: 20px;
+    row-gap: 20px;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
