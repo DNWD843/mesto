@@ -36,7 +36,6 @@ export default class Popup {
       this._handleEscClose(evt);
     });
   }
-
   close() {
     this._popup.classList.remove('popup_opened');
     this._popup.removeEventListener('mousedown', (evt) => {
@@ -47,7 +46,7 @@ export default class Popup {
     });
   }
 
-  generate = () => {
+  generate() {
     this._popup = document.querySelector(this._popupSelector);
     this._setEventListeners();
   }

@@ -4,8 +4,7 @@ export default class extends Popup {
     super(popupSelector);
     this._callback = formSubmitCallback;
   }
-
-  _getInputValues = () => {
+  _getInputValues() {
     this._obtainedValues = {};
     this._formInputsList = Array.from(this._form.querySelectorAll('.form__input'));
     this._formInputsList.forEach((input) => {
@@ -14,7 +13,7 @@ export default class extends Popup {
     return this._obtainedValues;
   }
 
-  _setEventListeners = () => {
+  _setEventListeners() {
     super._setEventListeners();
     this._form = this._popup.querySelector('.form');
     this._form.addEventListener('submit', () => {
@@ -22,7 +21,7 @@ export default class extends Popup {
     });
   }
 
-  close = () => {
+  close() {
     super.close();
     this._form.reset();
   }
