@@ -1,3 +1,4 @@
+import './../pages/index.css';
 import initialCards from './constants/mocks.js';
 import {
   editForm,

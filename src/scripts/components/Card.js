@@ -19,8 +19,7 @@ export default class Card {
   }
 
   _handleClickLike() {
-    this._element
-      .querySelector('.button_type_like')
+    this._likeIcon
       .classList
       .toggle('button_like-status_checked');
   }
@@ -31,9 +30,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.card__image').addEventListener('click', this._handleCardClick);
+    this._cardImage.addEventListener('click', this._handleCardClick);
 
-    this._element.querySelector('.button_type_like').addEventListener('click', () => {
+    this._likeIcon.addEventListener('click', () => {
       this._handleClickLike();
     });
 
@@ -44,9 +43,10 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    const cardImage = this._element.querySelector('.card__image');
-    cardImage.src = this._data.link;
-    cardImage.alt = this._data.title;
+    this._cardImage = this._element.querySelector('.card__image');
+    this._likeIcon = this._element.querySelector('.button_type_like');
+    this._cardImage.src = this._data.link;
+    this._cardImage.alt = this._data.title;
     this._element.querySelector('.card__title').textContent = this._data.title;
     this._setEventListeners();
 
