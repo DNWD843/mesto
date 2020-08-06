@@ -72,7 +72,7 @@ addButton.addEventListener('click', () => addPopup.open());
 formEditValidator.enableValidation();
 formAddValidator.enableValidation();
 
-viewPopup.generate();
-editPopup.generate();
-addPopup.generate();
+viewPopup.setEventListeners();
+editPopup.setEventListeners();
+addPopup.setEventListeners();
 cardsContainer.render();

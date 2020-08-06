@@ -13,8 +13,8 @@ export default class extends Popup {
     return this._obtainedValues;
   }
 
-  _setEventListeners() {
-    super._setEventListeners();
+  setEventListeners() {
+    super.setEventListeners();
     this._form = this._popup.querySelector('.form');
     this._form.addEventListener('submit', () => {
       this._callback(this._getInputValues());
