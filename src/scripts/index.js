@@ -21,11 +21,10 @@ import Section from './components/Section.js';
 const userData = new UserInfo('.user-profile__user-name', '.user-profile__user-job');
 const formEditValidator = new FormValidator(validationConfig, editForm);
 const formAddValidator = new FormValidator(validationConfig, addForm);
-const viewPopup = new PopupWithImage('.popup_type_view-photo');
+const viewPopup = new PopupWithImage('.popup_type_view-photo', '.popup__place-image', '.popup__place-name');
 const editPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
       userData.setUserInfo({ name: newData[nameInput.name], job: newData[jobInput.name] });
-      editPopup.close();
     }
   },
   '.popup_type_edit-profile');
@@ -34,12 +33,11 @@ const addPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
       const cardNode = new Card({
           data: { title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] },
-          handleCardClick: (evt) => viewPopup.open(evt)
+          handleCardClick: (newCardData) => viewPopup.open(newCardData)
         },
         '#card-template');
       const cardElement = cardNode.generateCard();
       cardsContainer.addItem(cardElement);
-      addPopup.close();
     }
   },
   '.popup_type_add-photo');
@@ -49,7 +47,7 @@ const cardsContainer = new Section({
     renderer: ({ title, link }) => {
       const cardNode = new Card({
           data: { title, link },
-          handleCardClick: (evt) => viewPopup.open(evt)
+          handleCardClick: (initialCardData) => viewPopup.open(initialCardData)
         },
         '#card-template');
       const cardElement = cardNode.generateCard();

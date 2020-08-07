@@ -1,8 +1,14 @@
 import Popup from './Popup.js';
 export default class extends Popup {
-  open(evt) {
-    document.querySelector('.popup__place-image').src = evt.target.src;
-    document.querySelector('.popup__place-name').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+  constructor(popupSelector, cardImageSelector, cardTitleSelector) {
+    super(popupSelector);
+    this._cardImageElement = document.querySelector(cardImageSelector);
+    this._cardTitleElement = document.querySelector(cardTitleSelector);
+  }
+
+  open({ title, link }) {
     super.open();
+    this._cardImageElement.src = link;
+    this._cardTitleElement.textContent = title;
   }
 }
