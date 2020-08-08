@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode development",
+    "build": "rd /s /q dist && webpack --mode development",
     "dev": "webpack-dev-server --open --watch --mode development"
   },
   "repository": {
