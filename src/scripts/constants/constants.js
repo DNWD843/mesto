@@ -18,3 +18,13 @@ export const validationConfig = {
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active',
 };
+
+export const editPopupSelector = '.popup_type_edit-profile';
+export const addPopupSelector = '.popup_type_add-photo';
+export const viewPopupSelector = '.popup_type_view-photo';
+export const cardTemplateSelector = '#card-template';
+export const containerSelector = '.photo__cards';
+export const placeImageSelector = '.popup__place-image';
+export const placeNameSelector = '.popup__place-name';
+export const userNameSelector = '.user-profile__user-name';
+export const userJobSelector = '.user-profile__user-job';
