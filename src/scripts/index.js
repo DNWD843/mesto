@@ -9,7 +9,16 @@ import {
   addForm,
   editButton,
   addButton,
-  validationConfig
+  validationConfig,
+  editPopupSelector,
+  addPopupSelector,
+  viewPopupSelector,
+  cardTemplateSelector,
+  containerSelector,
+  placeImageSelector,
+  placeNameSelector,
+  userNameSelector,
+  userJobSelector
 } from './constants/constants.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
@@ -18,16 +27,18 @@ import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
 import Section from './components/Section.js';
 
-const userData = new UserInfo('.user-profile__user-name', '.user-profile__user-job');
+const userData = new UserInfo(userNameSelector, userJobSelector);
 const formEditValidator = new FormValidator(validationConfig, editForm);
 const formAddValidator = new FormValidator(validationConfig, addForm);
-const viewPopup = new PopupWithImage('.popup_type_view-photo', '.popup__place-image', '.popup__place-name');
+const viewPopup = new PopupWithImage(viewPopupSelector, placeImageSelector, placeNameSelector);
 const editPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
       userData.setUserInfo({ name: newData[nameInput.name], job: newData[jobInput.name] });
-    }
+    },
+    formSelector: '.form',
+    formInputSelector: '.form__input'
   },
-  '.popup_type_edit-profile');
+  editPopupSelector);
 
 const addPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
@@ -35,12 +46,14 @@ const addPopup = new PopupWithForm({
           data: { title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] },
           handleCardClick: (newCardData) => viewPopup.open(newCardData)
         },
-        '#card-template');
+        cardTemplateSelector);
       const cardElement = cardNode.generateCard();
       cardsContainer.addItem(cardElement);
-    }
+    },
+    formSelector: '.form',
+    formInputSelector: '.form__input'
   },
-  '.popup_type_add-photo');
+  addPopupSelector);
 
 const cardsContainer = new Section({
     items: initialCards,
@@ -49,12 +62,12 @@ const cardsContainer = new Section({
           data: { title, link },
           handleCardClick: (initialCardData) => viewPopup.open(initialCardData)
         },
-        '#card-template');
+        cardTemplateSelector);
       const cardElement = cardNode.generateCard();
       cardsContainer.addItem(cardElement);
     }
   },
-  '.photo__cards');
+  containerSelector);
 
 // СЛУШАТЕЛИ НА КНОПКИ
 editButton.addEventListener('click', () => {

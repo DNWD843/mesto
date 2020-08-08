@@ -28,7 +28,6 @@ export default class Card {
     this._element.remove();
     this._element = null;
   }
-
   _setEventListeners() {
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._data);
