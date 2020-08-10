@@ -28,3 +28,14 @@ export const placeImageSelector = '.popup__place-image';
 export const placeNameSelector = '.popup__place-name';
 export const userNameSelector = '.user-profile__user-name';
 export const userJobSelector = '.user-profile__user-job';
+export const closeIconSelector = '.button_type_close';
+export const isOpenedModifier = 'popup_opened';
+
+export const cardElementsSelectors = {
+  cardSelector: '.card',
+  deleteIconSelector: '.button_type_delete',
+  cardImageSelector: '.card__image',
+  likeIconSelector: '.button_type_like',
+  cardTitleSelector: '.card__title',
+  isLikedModifier: 'button_like-status_checked'
+};
