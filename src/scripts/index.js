@@ -18,7 +18,10 @@ import {
   placeImageSelector,
   placeNameSelector,
   userNameSelector,
-  userJobSelector
+  userJobSelector,
+  closeIconSelector,
+  isOpenedModifier,
+  cardElementsSelectors
 } from './constants/constants.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
@@ -30,7 +33,7 @@ import Section from './components/Section.js';
 const userData = new UserInfo(userNameSelector, userJobSelector);
 const formEditValidator = new FormValidator(validationConfig, editForm);
 const formAddValidator = new FormValidator(validationConfig, addForm);
-const viewPopup = new PopupWithImage(viewPopupSelector, placeImageSelector, placeNameSelector);
+const viewPopup = new PopupWithImage(viewPopupSelector, closeIconSelector, isOpenedModifier, placeImageSelector, placeNameSelector);
 const editPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
       userData.setUserInfo({ name: newData[nameInput.name], job: newData[jobInput.name] });
@@ -38,7 +41,7 @@ const editPopup = new PopupWithForm({
     formSelector: '.form',
     formInputSelector: '.form__input'
   },
-  editPopupSelector);
+  editPopupSelector, closeIconSelector, isOpenedModifier);
 
 const addPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
@@ -46,14 +49,14 @@ const addPopup = new PopupWithForm({
           data: { title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] },
           handleCardClick: (newCardData) => viewPopup.open(newCardData)
         },
-        cardTemplateSelector);
+        cardTemplateSelector, cardElementsSelectors);
       const cardElement = cardNode.generateCard();
       cardsContainer.addItem(cardElement);
     },
     formSelector: '.form',
     formInputSelector: '.form__input'
   },
-  addPopupSelector);
+  addPopupSelector, closeIconSelector, isOpenedModifier);
 
 const cardsContainer = new Section({
     items: initialCards,
@@ -62,7 +65,7 @@ const cardsContainer = new Section({
           data: { title, link },
           handleCardClick: (initialCardData) => viewPopup.open(initialCardData)
         },
-        cardTemplateSelector);
+        cardTemplateSelector, cardElementsSelectors);
       const cardElement = cardNode.generateCard();
       cardsContainer.addItem(cardElement);
     }
