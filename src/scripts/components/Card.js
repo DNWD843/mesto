@@ -43,7 +43,7 @@ export default class Card {
       this._handleClickLike();
     });
 
-    this._element.querySelector(this._deleteIconSelector).addEventListener('click', () => {
+    this._deleteIcon.addEventListener('click', () => {
       this._handleClickDelete();
     });
   }
@@ -52,6 +52,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector(this._cardImageSelector);
     this._likeIcon = this._element.querySelector(this._likeIconSelector);
+    this._deleteIcon = this._element.querySelector(this._deleteIconSelector);
     this._cardImage.src = this._data.link;
     this._cardImage.alt = this._data.title;
     this._element.querySelector(this._cardTitleSelector).textContent = this._data.title;
