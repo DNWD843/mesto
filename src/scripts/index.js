@@ -21,7 +21,8 @@ import {
   userJobSelector,
   closeIconSelector,
   isOpenedModifier,
-  cardElementsSelectors
+  cardElementsSelectors,
+  formInputSelector
 } from './constants/constants.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
@@ -38,8 +39,8 @@ const editPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
       userData.setUserInfo({ name: newData[nameInput.name], job: newData[jobInput.name] });
     },
-    formSelector: '.form',
-    formInputSelector: '.form__input'
+    formElement: editForm,
+    formInputSelector: formInputSelector
   },
   editPopupSelector, closeIconSelector, isOpenedModifier);
 
@@ -53,8 +54,8 @@ const addPopup = new PopupWithForm({
       const cardElement = cardNode.generateCard();
       cardsContainer.addItem(cardElement);
     },
-    formSelector: '.form',
-    formInputSelector: '.form__input'
+    formElement: addForm,
+    formInputSelector: formInputSelector
   },
   addPopupSelector, closeIconSelector, isOpenedModifier);
 
