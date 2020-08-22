@@ -3,6 +3,7 @@
 @import url('./__description/card__description.css');
 @import url('./__like-button/card__like-button.css');
 @import url('./__delete-button/card__delete-button.css');
+@import url('./__delete-button/_enabled/card__delete-button_enabled.css');
 .card {
   background-color: #ffffff;
   position: relative;

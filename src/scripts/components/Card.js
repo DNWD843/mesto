@@ -1,8 +1,8 @@
 export default class Card {
   constructor({
     data,
-    handleCardClick
-  }, cardTemplateSelector, cardElementsSelectors) {
+    handleCardClick,
+  }, cardTemplateSelector, cardElementsSelectors, isOwner) {
     this._data = data;
     this._handleCardClick = handleCardClick;
     this._cardTemplateSelector = cardTemplateSelector;
@@ -12,6 +12,7 @@ export default class Card {
     this._likeIconSelector = cardElementsSelectors.likeIconSelector;
     this._cardTitleSelector = cardElementsSelectors.cardTitleSelector;
     this._isLikedModifier = cardElementsSelectors.isLikedModifier;
+    this._isOwner = isOwner;
   }
 
   _getTemplate() {
@@ -42,10 +43,14 @@ export default class Card {
     this._likeIcon.addEventListener('click', () => {
       this._handleClickLike();
     });
+    if (this._isOwner) {
+      this._deleteIcon.addEventListener('click', () => {
+        this._handleClickDelete();
+      });
+    }
 
-    this._deleteIcon.addEventListener('click', () => {
-      this._handleClickDelete();
-    });
+
+
   }
 
   generateCard() {
@@ -56,6 +61,9 @@ export default class Card {
     this._cardImage.src = this._data.link;
     this._cardImage.alt = this._data.title;
     this._element.querySelector(this._cardTitleSelector).textContent = this._data.title;
+    if (this._isOwner) {
+      this._deleteIcon.classList.add('card__delete-button_enabled');
+    }
     this._setEventListeners();
 
     return this._element;

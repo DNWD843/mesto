@@ -31,12 +31,12 @@ import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
 import Section from './components/Section.js';
 
-function renderCard({ title, link }) {
+function renderCard({ title, link }, isOwner) {
   const cardNode = new Card({
       data: { title, link },
-      handleCardClick: (CardData) => viewPopup.open(CardData)
+      handleCardClick: (CardData) => viewPopup.open(CardData),
     },
-    cardTemplateSelector, cardElementsSelectors);
+    cardTemplateSelector, cardElementsSelectors, isOwner);
   const cardElement = cardNode.generateCard();
   cardsContainer.addItem(cardElement);
 }
@@ -56,7 +56,7 @@ const editPopup = new PopupWithForm({
 
 const addPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
-      renderCard({ title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] });
+      renderCard({ title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] }, true);
     },
     formElement: addForm,
     formInputSelector: formInputSelector
@@ -66,7 +66,7 @@ const addPopup = new PopupWithForm({
 const cardsContainer = new Section({
     items: initialCards,
     renderer: ({ title, link }) => {
-      renderCard({ title, link });
+      renderCard({ title, link }, false);
     }
   },
   containerSelector);
