@@ -21,7 +21,8 @@ import {
   userJobSelector,
   closeIconSelector,
   isOpenedModifier,
-  cardElementsSelectors
+  cardElementsSelectors,
+  formInputSelector
 } from './constants/constants.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
@@ -29,6 +30,16 @@ import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
 import Section from './components/Section.js';
+
+function renderCard({ title, link }) {
+  const cardNode = new Card({
+      data: { title, link },
+      handleCardClick: (CardData) => viewPopup.open(CardData)
+    },
+    cardTemplateSelector, cardElementsSelectors);
+  const cardElement = cardNode.generateCard();
+  cardsContainer.addItem(cardElement);
+}
 
 const userData = new UserInfo(userNameSelector, userJobSelector);
 const formEditValidator = new FormValidator(validationConfig, editForm);
@@ -38,36 +49,24 @@ const editPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
       userData.setUserInfo({ name: newData[nameInput.name], job: newData[jobInput.name] });
     },
-    formSelector: '.form',
-    formInputSelector: '.form__input'
+    formElement: editForm,
+    formInputSelector: formInputSelector
   },
   editPopupSelector, closeIconSelector, isOpenedModifier);
 
 const addPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
-      const cardNode = new Card({
-          data: { title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] },
-          handleCardClick: (newCardData) => viewPopup.open(newCardData)
-        },
-        cardTemplateSelector, cardElementsSelectors);
-      const cardElement = cardNode.generateCard();
-      cardsContainer.addItem(cardElement);
+      renderCard({ title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] });
     },
-    formSelector: '.form',
-    formInputSelector: '.form__input'
+    formElement: addForm,
+    formInputSelector: formInputSelector
   },
   addPopupSelector, closeIconSelector, isOpenedModifier);
 
 const cardsContainer = new Section({
     items: initialCards,
     renderer: ({ title, link }) => {
-      const cardNode = new Card({
-          data: { title, link },
-          handleCardClick: (initialCardData) => viewPopup.open(initialCardData)
-        },
-        cardTemplateSelector, cardElementsSelectors);
-      const cardElement = cardNode.generateCard();
-      cardsContainer.addItem(cardElement);
+      renderCard({ title, link });
     }
   },
   containerSelector);

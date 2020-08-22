@@ -2,7 +2,6 @@ export const editForm = document.forms['edit-profile-form'];
 export const nameInput = editForm.elements['user-name-input'];
 export const jobInput = editForm.elements['user-job-input'];
 
-export const popUpAdd = document.querySelector('.popup_type_add-photo');
 export const addForm = document.forms['add-photo-form'];
 export const placeTitleInput = addForm.elements['place-title-input'];
 export const imageLinkInput = addForm.elements['image-link-input'];
@@ -30,6 +29,7 @@ export const userNameSelector = '.user-profile__user-name';
 export const userJobSelector = '.user-profile__user-job';
 export const closeIconSelector = '.button_type_close';
 export const isOpenedModifier = 'popup_opened';
+export const formInputSelector = '.form__input';
 
 export const cardElementsSelectors = {
   cardSelector: '.card',
