@@ -31,6 +31,16 @@ import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
 import Section from './components/Section.js';
 
+function renderCard({ title, link }) {
+  const cardNode = new Card({
+      data: { title, link },
+      handleCardClick: (CardData) => viewPopup.open(CardData)
+    },
+    cardTemplateSelector, cardElementsSelectors);
+  const cardElement = cardNode.generateCard();
+  cardsContainer.addItem(cardElement);
+}
+
 const userData = new UserInfo(userNameSelector, userJobSelector);
 const formEditValidator = new FormValidator(validationConfig, editForm);
 const formAddValidator = new FormValidator(validationConfig, addForm);
@@ -46,13 +56,7 @@ const editPopup = new PopupWithForm({
 
 const addPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
-      const cardNode = new Card({
-          data: { title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] },
-          handleCardClick: (newCardData) => viewPopup.open(newCardData)
-        },
-        cardTemplateSelector, cardElementsSelectors);
-      const cardElement = cardNode.generateCard();
-      cardsContainer.addItem(cardElement);
+      renderCard({ title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] });
     },
     formElement: addForm,
     formInputSelector: formInputSelector
@@ -62,13 +66,7 @@ const addPopup = new PopupWithForm({
 const cardsContainer = new Section({
     items: initialCards,
     renderer: ({ title, link }) => {
-      const cardNode = new Card({
-          data: { title, link },
-          handleCardClick: (initialCardData) => viewPopup.open(initialCardData)
-        },
-        cardTemplateSelector, cardElementsSelectors);
-      const cardElement = cardNode.generateCard();
-      cardsContainer.addItem(cardElement);
+      renderCard({ title, link });
     }
   },
   containerSelector);
