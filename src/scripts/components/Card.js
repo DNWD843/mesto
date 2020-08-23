@@ -2,7 +2,10 @@ export default class Card {
   constructor({
     data,
     handleCardClick,
-  }, cardTemplateSelector, cardElementsSelectors, isOwner) {
+    handleClickDeleteIcon,
+    setSubmitAction,
+    handleClickLikeIcon
+  }, cardTemplateSelector, cardElementsSelectors, isOwner, isLiked, likesQuantity) {
     this._data = data;
     this._handleCardClick = handleCardClick;
     this._cardTemplateSelector = cardTemplateSelector;
@@ -12,7 +15,15 @@ export default class Card {
     this._likeIconSelector = cardElementsSelectors.likeIconSelector;
     this._cardTitleSelector = cardElementsSelectors.cardTitleSelector;
     this._isLikedModifier = cardElementsSelectors.isLikedModifier;
+    this._likeCounterSelector = cardElementsSelectors.likeCounterSelector;
+    this._delButtonEnabledSelector = cardElementsSelectors.delButtonEnabledSelector;
     this._isOwner = isOwner;
+    this._cardId = this._data.id;
+    this._handleClickDeleteIcon = handleClickDeleteIcon;
+    this._setSubmitAction = setSubmitAction;
+    this._handleClickLikeIcon = handleClickLikeIcon;
+    this._isLiked = isLiked;
+    this._likesQuantity = likesQuantity;
   }
 
   _getTemplate() {
@@ -25,47 +36,43 @@ export default class Card {
     return cardElement;
   }
 
-  _handleClickLike() {
-    this._likeIcon
-      .classList
-      .toggle(this._isLikedModifier);
-  }
-
-  _handleClickDelete() {
-    this._element.remove();
-    this._element = null;
-  }
   _setEventListeners() {
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._data);
     });
 
     this._likeIcon.addEventListener('click', () => {
-      this._handleClickLike();
+      this._handleClickLikeIcon(this._cardId, this._likeIcon, this._likeCounter, this._isLikedModifier, this._isLiked);
+      this._isLiked = !this._isLiked;
     });
+
     if (this._isOwner) {
       this._deleteIcon.addEventListener('click', () => {
-        this._handleClickDelete();
+        this._setSubmitAction(this._cardId, this._element);
+        this._handleClickDeleteIcon();
       });
     }
 
-
-
   }
-
   generateCard() {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector(this._cardImageSelector);
     this._likeIcon = this._element.querySelector(this._likeIconSelector);
+    this._likeCounter = this._element.querySelector(this._likeCounterSelector);
     this._deleteIcon = this._element.querySelector(this._deleteIconSelector);
     this._cardImage.src = this._data.link;
     this._cardImage.alt = this._data.title;
     this._element.querySelector(this._cardTitleSelector).textContent = this._data.title;
     if (this._isOwner) {
-      this._deleteIcon.classList.add('card__delete-button_enabled');
+      this._deleteIcon.classList.add(this._delButtonEnabledSelector);
     }
-    this._setEventListeners();
+    if (this._isLiked) {
+      this._likeIcon.classList.add(this._isLikedModifier);
+    }
+    this._likeCounter.textContent = this._likesQuantity;
 
+    this._setEventListeners();
     return this._element;
   }
+
 }

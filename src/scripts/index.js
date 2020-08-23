@@ -1,5 +1,5 @@
 import './../pages/index.css';
-import initialCards from './constants/mocks.js';
+
 import {
   editForm,
   nameInput,
@@ -7,22 +7,26 @@ import {
   placeTitleInput,
   imageLinkInput,
   addForm,
+  userProfile,
   editButton,
   addButton,
   validationConfig,
   editPopupSelector,
   addPopupSelector,
   viewPopupSelector,
+  confirmPopupSelector,
   cardTemplateSelector,
   containerSelector,
   placeImageSelector,
   placeNameSelector,
   userNameSelector,
   userJobSelector,
+  userAvatarSelector,
   closeIconSelector,
   isOpenedModifier,
+  confirmFormSelector,
   cardElementsSelectors,
-  formInputSelector
+  formInputSelector,
 } from './constants/constants.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
@@ -30,46 +34,144 @@ import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
 import Section from './components/Section.js';
+import Api from './components/Api.js';
+import PopupConfirm from './components/PopupConfirm.js';
 
-function renderCard({ title, link }, isOwner) {
-  const cardNode = new Card({
-      data: { title, link },
-      handleCardClick: (CardData) => viewPopup.open(CardData),
-    },
-    cardTemplateSelector, cardElementsSelectors, isOwner);
-  const cardElement = cardNode.generateCard();
-  cardsContainer.addItem(cardElement);
-}
+const api = new Api({
+  URLs: {
+    baseURL: 'https://mesto.nomoreparties.co/v1/cohort-14/',
+    cardsURL: 'https://mesto.nomoreparties.co/v1/cohort-14/cards/',
+    userURL: 'https://mesto.nomoreparties.co/v1/cohort-14/users/me',
+    likesURL: 'https://mesto.nomoreparties.co/v1/cohort-14/cards/likes/'
+  },
+  headers: {
+    "authorization": '85abb6e6-ccb0-45c7-b6e8-4ffe1f5da546'
+  }
+});
 
-const userData = new UserInfo(userNameSelector, userJobSelector);
+const confirmPopup = new PopupConfirm(confirmPopupSelector, closeIconSelector, isOpenedModifier, confirmFormSelector);
+const myIdentifier = {};
+const userData = new UserInfo(userProfile, userNameSelector, userJobSelector, userAvatarSelector);
 const formEditValidator = new FormValidator(validationConfig, editForm);
 const formAddValidator = new FormValidator(validationConfig, addForm);
 const viewPopup = new PopupWithImage(viewPopupSelector, closeIconSelector, isOpenedModifier, placeImageSelector, placeNameSelector);
+
 const editPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
-      userData.setUserInfo({ name: newData[nameInput.name], job: newData[jobInput.name] });
+      api.editProfile({ name: newData[nameInput.name], job: newData[jobInput.name] })
+        .then((resData) => {
+          const { name, about: job } = resData;
+          userData.setUserInfo({ name, job });
+          editPopup.close();
+        })
+        .catch((err) => { console.log(err); });
     },
     formElement: editForm,
     formInputSelector: formInputSelector
   },
   editPopupSelector, closeIconSelector, isOpenedModifier);
 
-const addPopup = new PopupWithForm({
-    formSubmitCallback: (newData) => {
-      renderCard({ title: newData[placeTitleInput.name], link: newData[imageLinkInput.name] }, true);
-    },
-    formElement: addForm,
-    formInputSelector: formInputSelector
-  },
-  addPopupSelector, closeIconSelector, isOpenedModifier);
-
-const cardsContainer = new Section({
-    items: initialCards,
-    renderer: ({ title, link }) => {
-      renderCard({ title, link }, false);
+function createCard(item) {
+  let isOwner = false;
+  let isLiked = false;
+  let likesQuantity = item.likesArray.length;
+  if (myIdentifier.Id === item.owner._id) {
+    isOwner = true;
+  }
+  for (let i = 0; i < item.likesArray.length; i++) {
+    if (myIdentifier.Id === item.likesArray[i]._id) {
+      isLiked = true;
     }
-  },
-  containerSelector);
+  }
+
+  const cardNode = new Card({
+      data: item,
+      handleCardClick: (CardData) => viewPopup.open(CardData),
+      handleClickDeleteIcon: () => confirmPopup.open(),
+      setSubmitAction: (id, card) => confirmPopup.setSubmitAction(() => {
+        //console.log(id, card);
+        api.deleteCard(id)
+          .then((res) => {
+            card.remove();
+            card = null;
+            confirmPopup.close();
+          })
+          .catch((err) => { console.log(err); });
+      }),
+      handleClickLikeIcon: (id, likeIcon, likeCounter, isLikedModifier, likeChecked) => {
+        if (likeChecked) {
+          //console.log('likeChecked: ' + likeChecked + '  удалаю лайк');
+          api.deleteLike(id)
+            .then((res) => {
+              likeIcon
+                .classList
+                .remove(isLikedModifier);
+              likeCounter.textContent = res.likes.length;
+            })
+            .catch((err) => { console.log(err); });
+        } else {
+          //console.log('likeChecked: ' + likeChecked + '  добавляю лайк');
+          api.loadLike(id)
+            .then((res) => {
+              likeIcon
+                .classList
+                .add(isLikedModifier);
+              likeCounter.textContent = res.likes.length;
+            })
+            .catch((err) => { console.log(err); });
+        }
+      }
+    },
+    cardTemplateSelector,
+    cardElementsSelectors,
+    isOwner, isLiked, likesQuantity);
+  const cardElement = cardNode.generateCard();
+  return cardElement;
+}
+
+Promise.all([api.loadUserData(), api.loadCards()])
+  .then(([currentUserData, cardData]) => {
+
+    myIdentifier.Id = currentUserData._id;
+    const { name, about: job, avatar } = currentUserData;
+    userData.setUserInfo({ name, job, avatar });
+
+    const cardsContainer = new Section({
+        items: cardData,
+        renderer: ({ title, link, owner, id, likesArray }) => {
+          const card = createCard({ title, link, owner, id, likesArray });
+          cardsContainer.addItem(card);
+        }
+      },
+      containerSelector);
+    const addPopup = new PopupWithForm({
+        formSubmitCallback: (newCardData) => {
+          api.addNewCard({ name: newCardData[placeTitleInput.name], link: newCardData[imageLinkInput.name] })
+            .then((cardData) => {
+              const { name: title, link: link, owner: owner, _id: id, likes: likesArray } = cardData;
+              const card = createCard({ title, link, owner, id, likesArray });
+              cardsContainer.addItem(card);
+              addPopup.close();
+            })
+            .catch((err) => { console.log(err); });
+
+        },
+        formElement: addForm,
+        formInputSelector: formInputSelector
+      },
+      addPopupSelector, closeIconSelector, isOpenedModifier);
+
+    addPopup.setEventListeners();
+    addButton.addEventListener('click', () => addPopup.open());
+
+    cardsContainer.render();
+  })
+  .catch((err) => { console.log(err); });
+
+
+
+
+
 
 // СЛУШАТЕЛИ НА КНОПКИ
 editButton.addEventListener('click', () => {
@@ -79,13 +181,21 @@ editButton.addEventListener('click', () => {
   editPopup.open();
 });
 
-addButton.addEventListener('click', () => addPopup.open());
-
 //запускаем валидацию форм
 formEditValidator.enableValidation();
 formAddValidator.enableValidation();
 
 viewPopup.setEventListeners();
 editPopup.setEventListeners();
-addPopup.setEventListeners();
-cardsContainer.render();
+confirmPopup.setEventListeners();
+
+/********************************************************************/
+/********************************************************************/
+
+// Далее функционал API
+
+
+
+document.querySelector('.user-profile__avatar').addEventListener('click', () => {
+  console.log('Ты нажал на аватар');
+});

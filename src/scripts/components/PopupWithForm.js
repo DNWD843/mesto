@@ -19,7 +19,6 @@ export default class extends Popup {
     super.setEventListeners();
     this._form.addEventListener('submit', () => {
       this._callback(this._getInputValues());
-      this.close();
     });
   }
 
