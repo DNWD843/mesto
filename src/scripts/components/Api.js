@@ -6,6 +6,7 @@ export default class Api {
     this._cardsURL = URLs.cardsURL;
     this._userURL = URLs.userURL;
     this._likesURL = URLs.likesURL;
+    this._avatarURL = URLs.avatarURL;
     this._headers = headers;
   }
 
@@ -124,4 +125,22 @@ export default class Api {
       });
   }
 
+  editAvatar(avatar) {
+    return fetch(`${this._avatarURL}`, {
+        method: 'PATCH',
+        headers: {
+          authorization: '85abb6e6-ccb0-45c7-b6e8-4ffe1f5da546',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          avatar: avatar,
+        })
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
+  }
 }

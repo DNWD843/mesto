@@ -6,13 +6,17 @@ import {
   jobInput,
   placeTitleInput,
   imageLinkInput,
+  avatarInput,
   addForm,
   userProfile,
   editButton,
   addButton,
+  editAvatarForm,
+  editAvatarButton,
   validationConfig,
   editPopupSelector,
   addPopupSelector,
+  editAvatarPopupSelector,
   viewPopupSelector,
   confirmPopupSelector,
   cardTemplateSelector,
@@ -27,6 +31,10 @@ import {
   confirmFormSelector,
   cardElementsSelectors,
   formInputSelector,
+  myIdentifier,
+  editFormSubmitButton,
+  editAvatarFormSubmitButton,
+  addFormSubmitButton
 } from './constants/constants.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
@@ -37,12 +45,23 @@ import Section from './components/Section.js';
 import Api from './components/Api.js';
 import PopupConfirm from './components/PopupConfirm.js';
 
+let submitButtonDefaultValue;
+
+function preloader(submitButton, isLoading) {
+  if (isLoading) {
+    submitButtonDefaultValue = submitButton.textContent;
+    submitButton.textContent = 'Выполняется...';
+  } else {
+    submitButton.textContent = submitButtonDefaultValue;
+  }
+}
 const api = new Api({
   URLs: {
     baseURL: 'https://mesto.nomoreparties.co/v1/cohort-14/',
     cardsURL: 'https://mesto.nomoreparties.co/v1/cohort-14/cards/',
     userURL: 'https://mesto.nomoreparties.co/v1/cohort-14/users/me',
-    likesURL: 'https://mesto.nomoreparties.co/v1/cohort-14/cards/likes/'
+    likesURL: 'https://mesto.nomoreparties.co/v1/cohort-14/cards/likes/',
+    avatarURL: 'https://mesto.nomoreparties.co/v1/cohort-14/users/me/avatar'
   },
   headers: {
     "authorization": '85abb6e6-ccb0-45c7-b6e8-4ffe1f5da546'
@@ -50,26 +69,48 @@ const api = new Api({
 });
 
 const confirmPopup = new PopupConfirm(confirmPopupSelector, closeIconSelector, isOpenedModifier, confirmFormSelector);
-const myIdentifier = {};
 const userData = new UserInfo(userProfile, userNameSelector, userJobSelector, userAvatarSelector);
 const formEditValidator = new FormValidator(validationConfig, editForm);
 const formAddValidator = new FormValidator(validationConfig, addForm);
+const formEditAvatarValidator = new FormValidator(validationConfig, editAvatarForm);
 const viewPopup = new PopupWithImage(viewPopupSelector, closeIconSelector, isOpenedModifier, placeImageSelector, placeNameSelector);
 
 const editPopup = new PopupWithForm({
     formSubmitCallback: (newData) => {
+      preloader(editFormSubmitButton, true);
       api.editProfile({ name: newData[nameInput.name], job: newData[jobInput.name] })
         .then((resData) => {
           const { name, about: job } = resData;
           userData.setUserInfo({ name, job });
           editPopup.close();
         })
-        .catch((err) => { console.log(err); });
+        .catch((err) => { console.log(err); })
+        .finally(() => {
+          preloader(editFormSubmitButton, false);
+        });
     },
     formElement: editForm,
     formInputSelector: formInputSelector
   },
   editPopupSelector, closeIconSelector, isOpenedModifier);
+
+const editAvatarPopup = new PopupWithForm({
+    formSubmitCallback: (newAvatar) => {
+      preloader(editAvatarFormSubmitButton, true);
+      api.editAvatar(newAvatar[avatarInput.name])
+        .then((res) => {
+          userData.setUserInfo(res);
+          editAvatarPopup.close();
+        })
+        .catch((err) => { console.log(err); })
+        .finally(() => {
+          preloader(editAvatarFormSubmitButton, false);
+        });
+    },
+    formElement: editAvatarForm,
+    formInputSelector: formInputSelector
+  },
+  editAvatarPopupSelector, closeIconSelector, isOpenedModifier);
 
 function createCard(item) {
   let isOwner = false;
@@ -83,7 +124,6 @@ function createCard(item) {
       isLiked = true;
     }
   }
-
   const cardNode = new Card({
       data: item,
       handleCardClick: (CardData) => viewPopup.open(CardData),
@@ -144,8 +184,10 @@ Promise.all([api.loadUserData(), api.loadCards()])
         }
       },
       containerSelector);
+
     const addPopup = new PopupWithForm({
         formSubmitCallback: (newCardData) => {
+          preloader(addFormSubmitButton, true);
           api.addNewCard({ name: newCardData[placeTitleInput.name], link: newCardData[imageLinkInput.name] })
             .then((cardData) => {
               const { name: title, link: link, owner: owner, _id: id, likes: likesArray } = cardData;
@@ -153,7 +195,10 @@ Promise.all([api.loadUserData(), api.loadCards()])
               cardsContainer.addItem(card);
               addPopup.close();
             })
-            .catch((err) => { console.log(err); });
+            .catch((err) => { console.log(err); })
+            .finally(() => {
+              preloader(addFormSubmitButton, false);
+            });
 
         },
         formElement: addForm,
@@ -181,21 +226,21 @@ editButton.addEventListener('click', () => {
   editPopup.open();
 });
 
+editAvatarButton.addEventListener('click', () => {
+  editAvatarPopup.open();
+});
+
 //запускаем валидацию форм
 formEditValidator.enableValidation();
 formAddValidator.enableValidation();
+formEditAvatarValidator.enableValidation();
 
 viewPopup.setEventListeners();
 editPopup.setEventListeners();
 confirmPopup.setEventListeners();
+editAvatarPopup.setEventListeners();
 
 /********************************************************************/
 /********************************************************************/
 
 // Далее функционал API
-
-
-
-document.querySelector('.user-profile__avatar').addEventListener('click', () => {
-  console.log('Ты нажал на аватар');
-});
