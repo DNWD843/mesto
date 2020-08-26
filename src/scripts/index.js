@@ -116,16 +116,12 @@ const editAvatarPopup = new PopupWithForm({
 
 function createCard(item) {
   let isOwner = false;
-  let isLiked = false;
   let likesQuantity = item.likesArray.length;
   if (myIdentifier.Id === item.owner._id) {
     isOwner = true;
   }
-  for (let i = 0; i < item.likesArray.length; i++) {
-    if (myIdentifier.Id === item.likesArray[i]._id) {
-      isLiked = true;
-    }
-  }
+
+  let isLiked = item.likesArray.some((owner) => owner._id === myIdentifier.Id);
 
   const cardNode = new Card({
       data: item,
