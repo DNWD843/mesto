@@ -50,11 +50,12 @@ let submitButtonDefaultValue;
 function preloader(submitButton, isLoading) {
   if (isLoading) {
     submitButtonDefaultValue = submitButton.textContent;
-    submitButton.textContent = 'Выполняется...';
+    submitButton.textContent = 'Сохранение...';
   } else {
     submitButton.textContent = submitButtonDefaultValue;
   }
 }
+
 const api = new Api({
   URLs: {
     baseURL: 'https://mesto.nomoreparties.co/v1/cohort-14/',
@@ -65,7 +66,8 @@ const api = new Api({
   },
   headers: {
     "authorization": '85abb6e6-ccb0-45c7-b6e8-4ffe1f5da546'
-  }
+  },
+  token: '85abb6e6-ccb0-45c7-b6e8-4ffe1f5da546'
 });
 
 const confirmPopup = new PopupConfirm(confirmPopupSelector, closeIconSelector, isOpenedModifier, confirmFormSelector);
@@ -124,6 +126,7 @@ function createCard(item) {
       isLiked = true;
     }
   }
+
   const cardNode = new Card({
       data: item,
       handleCardClick: (CardData) => viewPopup.open(CardData),
@@ -140,7 +143,7 @@ function createCard(item) {
       }),
       handleClickLikeIcon: (id, likeIcon, likeCounter, isLikedModifier, likeChecked) => {
         if (likeChecked) {
-          //console.log('likeChecked: ' + likeChecked + '  удалаю лайк');
+          //console.log('likeChecked: ' + likeChecked + '  удаляю лайк');
           api.deleteLike(id)
             .then((res) => {
               likeIcon
@@ -165,13 +168,13 @@ function createCard(item) {
     cardTemplateSelector,
     cardElementsSelectors,
     isOwner, isLiked, likesQuantity);
+
   const cardElement = cardNode.generateCard();
   return cardElement;
 }
 
 Promise.all([api.loadUserData(), api.loadCards()])
   .then(([currentUserData, cardData]) => {
-
     myIdentifier.Id = currentUserData._id;
     const { name, about: job, avatar } = currentUserData;
     userData.setUserInfo({ name, job, avatar });
@@ -213,11 +216,6 @@ Promise.all([api.loadUserData(), api.loadCards()])
   })
   .catch((err) => { console.log(err); });
 
-
-
-
-
-
 // СЛУШАТЕЛИ НА КНОПКИ
 editButton.addEventListener('click', () => {
   const { name, job } = userData.getUserInfo();
@@ -239,8 +237,3 @@ viewPopup.setEventListeners();
 editPopup.setEventListeners();
 confirmPopup.setEventListeners();
 editAvatarPopup.setEventListeners();
-
-/********************************************************************/
-/********************************************************************/
-
-// Далее функционал API
