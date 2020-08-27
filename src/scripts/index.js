@@ -84,10 +84,10 @@ const editPopup = new PopupWithForm({
         .then((resData) => {
           const { name, about: job } = resData;
           userData.setUserInfo({ name, job });
-          editPopup.close();
         })
         .catch((err) => { console.log(err); })
         .finally(() => {
+          editPopup.close();
           preloader(editFormSubmitButton, false);
         });
     },
@@ -102,10 +102,10 @@ const editAvatarPopup = new PopupWithForm({
       api.editAvatar(newAvatar[avatarInput.name])
         .then((res) => {
           userData.setUserInfo(res);
-          editAvatarPopup.close();
         })
         .catch((err) => { console.log(err); })
         .finally(() => {
+          editAvatarPopup.close();
           preloader(editAvatarFormSubmitButton, false);
         });
     },
@@ -117,11 +117,11 @@ const editAvatarPopup = new PopupWithForm({
 function createCard(item) {
   let isOwner = false;
   let likesQuantity = item.likesArray.length;
-  if (myIdentifier.Id === item.owner._id) {
+  if (myIdentifier.id === item.owner._id) {
     isOwner = true;
   }
 
-  let isLiked = item.likesArray.some((owner) => owner._id === myIdentifier.Id);
+  let isLiked = item.likesArray.some((owner) => owner._id === myIdentifier.id);
 
   const cardNode = new Card({
       data: item,
@@ -133,9 +133,11 @@ function createCard(item) {
           .then((res) => {
             card.remove();
             card = null;
-            confirmPopup.close();
           })
-          .catch((err) => { console.log(err); });
+          .catch((err) => { console.log(err); })
+          .finally(() => {
+            confirmPopup.close();
+          });
       }),
       handleClickLikeIcon: (id, likeIcon, likeCounter, isLikedModifier, likeChecked) => {
         if (likeChecked) {
@@ -171,13 +173,14 @@ function createCard(item) {
 
 Promise.all([api.loadUserData(), api.loadCards()])
   .then(([currentUserData, cardData]) => {
-    myIdentifier.Id = currentUserData._id;
+    myIdentifier.id = currentUserData._id;
     const { name, about: job, avatar } = currentUserData;
     userData.setUserInfo({ name, job, avatar });
 
     const cardsContainer = new Section({
         items: cardData,
-        renderer: ({ title, link, owner, id, likesArray }) => {
+        renderer: (cardDataItem) => {
+          const { name: title, link: link, owner: owner, _id: id, likes: likesArray } = cardDataItem;
           const card = createCard({ title, link, owner, id, likesArray });
           cardsContainer.addItem(card);
         }
@@ -188,14 +191,14 @@ Promise.all([api.loadUserData(), api.loadCards()])
         formSubmitCallback: (newCardData) => {
           preloader(addFormSubmitButton, true);
           api.addNewCard({ name: newCardData[placeTitleInput.name], link: newCardData[imageLinkInput.name] })
-            .then((cardData) => {
-              const { name: title, link: link, owner: owner, _id: id, likes: likesArray } = cardData;
+            .then((obtainedNewCardData) => {
+              const { name: title, link: link, owner: owner, _id: id, likes: likesArray } = obtainedNewCardData;
               const card = createCard({ title, link, owner, id, likesArray });
               cardsContainer.addItem(card);
-              addPopup.close();
             })
             .catch((err) => { console.log(err); })
             .finally(() => {
+              addPopup.close();
               preloader(addFormSubmitButton, false);
             });
 

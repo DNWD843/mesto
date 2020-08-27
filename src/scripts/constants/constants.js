@@ -17,9 +17,6 @@ export const editAvatarForm = document.forms['edit-avatar-form'];
 export const avatarInput = editAvatarForm.elements['avatar-link-input'];
 export const editAvatarFormSubmitButton = editAvatarForm.querySelector('.button_type_submit');
 
-
-
-
 export const validationConfig = {
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit-button',
