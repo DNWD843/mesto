@@ -7,7 +7,7 @@ export default class Section {
 
   render() {
     this._items.forEach((item) => {
-      this._renderer({ title: item.name, link: item.link, owner: item.owner, id: item._id, likesArray: item.likes }, this._toContainer);
+      this._renderer(item, this._toContainer);
     });
   }
 
