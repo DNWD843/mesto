@@ -81,10 +81,10 @@ const editPopup = new PopupWithForm({
         .then((resData) => {
           const { name, about: job } = resData;
           userData.setUserInfo({ name, job });
+          editPopup.close();
         })
         .catch((err) => { console.log(err); })
         .finally(() => {
-          editPopup.close();
           preloader(editFormSubmitButton, false);
         });
     },
@@ -100,10 +100,10 @@ const editAvatarPopup = new PopupWithForm({
         .then((res) => {
           const { name, about: job, avatar } = res;
           userData.setUserInfo({ name, job, avatar });
+          editAvatarPopup.close();
         })
         .catch((err) => { console.log(err); })
         .finally(() => {
-          editAvatarPopup.close();
           preloader(editAvatarFormSubmitButton, false);
         });
     },
@@ -131,11 +131,9 @@ function createCard(item) {
           .then((res) => {
             card.remove();
             card = null;
-          })
-          .catch((err) => { console.log(err); })
-          .finally(() => {
             confirmPopup.close();
-          });
+          })
+          .catch((err) => { console.log(err); });
       }),
       handleClickLikeIcon: (id, likeIcon, likeCounter, isLikedModifier, likeChecked) => {
         if (likeChecked) {
@@ -193,10 +191,10 @@ Promise.all([api.loadUserData(), api.loadCards()])
               const { name: title, link: link, owner: owner, _id: id, likes: likesArray } = obtainedNewCardData;
               const card = createCard({ title, link, owner, id, likesArray });
               cardsContainer.addItem(card);
+              addPopup.close();
             })
             .catch((err) => { console.log(err); })
             .finally(() => {
-              addPopup.close();
               preloader(addFormSubmitButton, false);
             });
 
