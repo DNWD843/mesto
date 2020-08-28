@@ -173,7 +173,6 @@ Promise.all([api.loadUserData(), api.loadCards()])
   .then(([currentUserData, cardData]) => {
     myIdentifier.id = currentUserData._id;
     const { name, about: job, avatar } = currentUserData;
-    console.log(job);
     userData.setUserInfo({ name, job, avatar });
 
     const cardsContainer = new Section({
