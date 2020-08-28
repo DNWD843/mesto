@@ -45,14 +45,11 @@ import Section from './components/Section.js';
 import Api from './components/Api.js';
 import PopupConfirm from './components/PopupConfirm.js';
 
-let submitButtonDefaultValue;
-
 function preloader(submitButton, isLoading) {
   if (isLoading) {
-    submitButtonDefaultValue = submitButton.textContent;
     submitButton.textContent = 'Сохранение...';
   } else {
-    submitButton.textContent = submitButtonDefaultValue;
+    submitButton.textContent = submitButton.value;
   }
 }
 
