@@ -12,11 +12,11 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo({ name, job, avatar }) {
-    this._userNameElement.textContent = name;
-    this._userJobElement.textContent = job;
-    if (avatar) {
-      this._userAvatarElement.style.backgroundImage = `url(${avatar})`;
+  setUserInfo(userData) {
+    this._userNameElement.textContent = userData.name;
+    this._userJobElement.textContent = userData.job;
+    if (userData.avatar) {
+      this._userAvatarElement.style.backgroundImage = `url(${userData.avatar})`;
     }
   }
 }
