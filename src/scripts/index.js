@@ -45,14 +45,11 @@ import Section from './components/Section.js';
 import Api from './components/Api.js';
 import PopupConfirm from './components/PopupConfirm.js';
 
-let submitButtonDefaultValue;
-
 function preloader(submitButton, isLoading) {
   if (isLoading) {
-    submitButtonDefaultValue = submitButton.textContent;
     submitButton.textContent = 'Сохранение...';
   } else {
-    submitButton.textContent = submitButtonDefaultValue;
+    submitButton.textContent = submitButton.value;
   }
 }
 
@@ -101,7 +98,8 @@ const editAvatarPopup = new PopupWithForm({
       preloader(editAvatarFormSubmitButton, true);
       api.editAvatar(newAvatar[avatarInput.name])
         .then((res) => {
-          userData.setUserInfo(res);
+          const { name, about: job, avatar } = res;
+          userData.setUserInfo({ name, job, avatar });
         })
         .catch((err) => { console.log(err); })
         .finally(() => {
