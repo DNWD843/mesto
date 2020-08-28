@@ -98,7 +98,8 @@ const editAvatarPopup = new PopupWithForm({
       preloader(editAvatarFormSubmitButton, true);
       api.editAvatar(newAvatar[avatarInput.name])
         .then((res) => {
-          userData.setUserInfo(res);
+          const { name, about: job, avatar } = res;
+          userData.setUserInfo({ name, job, avatar });
         })
         .catch((err) => { console.log(err); })
         .finally(() => {
@@ -172,6 +173,7 @@ Promise.all([api.loadUserData(), api.loadCards()])
   .then(([currentUserData, cardData]) => {
     myIdentifier.id = currentUserData._id;
     const { name, about: job, avatar } = currentUserData;
+    console.log(job);
     userData.setUserInfo({ name, job, avatar });
 
     const cardsContainer = new Section({
