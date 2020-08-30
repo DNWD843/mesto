@@ -7,7 +7,8 @@
     "build": "rimraf dist && webpack --mode development",
     "dev": "webpack-dev-server --open --watch --mode development",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "docs:build": "documentation build src/** -f html -o docs"
   },
   "repository": {
     "type": "git",
