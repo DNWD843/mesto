@@ -1,9 +1,37 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/FormValidator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/FormValidator.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @module FormValidator
- * @description Класс FormValidator<br>
- * Определяет логику валидации форм в модальных окнах приложения<br>
- * Для каждой формы создается свой экземпляр класса FormValidator<br>
- * Класс имеет один публичный метод, запускающий валидацию - enableValidation()<br>
+ * @description Класс FormValidator&lt;br>
+ * Определяет логику валидации форм в модальных окнах приложения&lt;br>
+ * Для каждой формы создается свой экземпляр класса FormValidator&lt;br>
+ * Класс имеет один публичный метод, запускающий валидацию - enableValidation()&lt;br>
  * Класс принимает в конструктор объект настроек config и DOM-ноду формы, для которой необходимо запустить валидацию
  * @param {Object} config - объект настроек валидации, содержит селекторы элементов и классы, необходимые для валидации
  * @param {String} config.inputSelector - селектор инпута формы, общий для всех инпутов
@@ -25,7 +53,7 @@ export default class FormValidator {
   }
 
   /**
-   * @description Приватный метод<br>
+   * @description Приватный метод&lt;br>
    * Метод вывода сообщения об ошибке
    * @private
    * @param {HTMLElement} inputElement - инпут формы (один из нескольких или единственный)
@@ -43,7 +71,7 @@ export default class FormValidator {
   }
 
   /**
-   * @description Приватный метод<br>
+   * @description Приватный метод&lt;br>
    * Метод скрытия сообщения об ошибке
    * @private
    * @param {HTMLElement} inputElement - инпут формы (один из нескольких или единственный)
@@ -61,11 +89,11 @@ export default class FormValidator {
   }
 
   /**
-   * @description Приватный метод<br>
-   * Метод проверки валидности инпутов в форме<br>
-   * Метод как бы отвечает на вопрос: этот инпут валиден?<br>
-   * &nbsp Если да, то для этого инпута вызывается приватный метод скрытия ошибок _hideInputError<br>
-   * &nbsp Если нет, то для этого инпута вызывается приватный метод отображения ошибок _showInputError<br>
+   * @description Приватный метод&lt;br>
+   * Метод проверки валидности инпутов в форме&lt;br>
+   * Метод как бы отвечает на вопрос: этот инпут валиден?&lt;br>
+   * &amp;nbsp Если да, то для этого инпута вызывается приватный метод скрытия ошибок _hideInputError&lt;br>
+   * &amp;nbsp Если нет, то для этого инпута вызывается приватный метод отображения ошибок _showInputError&lt;br>
    * @private 
    * @param {HTMLElement} inputElement - инпут формы (один из нескольких или единственный)
    */
@@ -79,11 +107,11 @@ export default class FormValidator {
   }
 
   /**
-   * @description Приватный метод<br>
-   * Метод проверки наличия невалидных инпутов в форме<br>
-   * Метод перебирает все инпуты формы и проверяет каждый на валидность<br>
-   * Метод как бы отвечает на вопрос: в этой форме есть хотя бы один невалидный инпут?<br>
-   * Возвращает true, если в форме есть хотя бы один невалидный инпут<br>
+   * @description Приватный метод&lt;br>
+   * Метод проверки наличия невалидных инпутов в форме&lt;br>
+   * Метод перебирает все инпуты формы и проверяет каждый на валидность&lt;br>
+   * Метод как бы отвечает на вопрос: в этой форме есть хотя бы один невалидный инпут?&lt;br>
+   * Возвращает true, если в форме есть хотя бы один невалидный инпут&lt;br>
    * Возвращает false, если в форме нет ни одного невалидного инпута
    * @private 
    */
@@ -95,8 +123,8 @@ export default class FormValidator {
   }
 
   /**
-   * @description Приватный метод<br>
-   * Изменяет состояние кнопки отправки формы (submit) в зависимости от валидности или невалидности инпутов формы<br>
+   * @description Приватный метод&lt;br>
+   * Изменяет состояние кнопки отправки формы (submit) в зависимости от валидности или невалидности инпутов формы&lt;br>
    * Если форма содержит хотя бы один невалидный инпут, кнопка submit становится неактивной
    * @private
    * @param {Array} inputList - массив инпутов формы
@@ -116,10 +144,10 @@ export default class FormValidator {
   }
 
   /**
-   * @description Приватный метод<br>
-   * Метод сброса валидации<br>
-   * Если пользователь заполнял форму, но передумал отправлять данные и закрыл ее, то, несмотря на очистку инпутов при открытии форм,<br>
-   * в форме остаются ошибки и стили невалидных инпутов.<br>
+   * @description Приватный метод&lt;br>
+   * Метод сброса валидации&lt;br>
+   * Если пользователь заполнял форму, но передумал отправлять данные и закрыл ее, то, несмотря на очистку инпутов при открытии форм,&lt;br>
+   * в форме остаются ошибки и стили невалидных инпутов.&lt;br>
    * Метод _resetValidation очищает форму от ошибок и невалидных стилей, оставшихся после предыдущего сеанса работы пользователя с формой
    * @private
    * @param {Array} inputList - массив инпутов формы
@@ -135,7 +163,7 @@ export default class FormValidator {
   }
 
   /**
-   * @description Приватный метод<br>
+   * @description Приватный метод&lt;br>
    * Метод установки слушателей
    * @private
    */
@@ -153,9 +181,9 @@ export default class FormValidator {
     //хотя кнопка и форма не имеют никакого родства в DOM. 
     //Пример:
     //Форма в модальном окне:
-    //<form class="form ..." name="add-photo-form">
+    //&lt;form class="form ..." name="add-photo-form">
     //Кнопка в блоке user-profile:
-    //<button type="button" class="button ..." name="add-photo-form-button" id="add-photo-form-button">
+    //&lt;button type="button" class="button ..." name="add-photo-form-button" id="add-photo-form-button">
     //Для корректной работы валидации при добавлении новых форм, необходимо придерживаться указанного порядка
     //присваивания значений атрибутов name и id в формах и открывающих их кнопках.
     const openFormButton = document.querySelector(`#${this._formElement.name}-button`);
@@ -179,9 +207,9 @@ export default class FormValidator {
   }
 
   /**
-   * @description Публичный метод<br>
-   * Включает валидацию формы<br>
-   * Включение валидации производится один раз.<br>
+   * @description Публичный метод&lt;br>
+   * Включает валидацию формы&lt;br>
+   * Включение валидации производится один раз.&lt;br>
    * Далее валидация осуществляется постоянно при взаимодействии пользователя с формой
    * @public
    * @example
@@ -204,4 +232,26 @@ export default class FormValidator {
     //Устанавливаем слушатели событий
     this._setEventListeners();
   }
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Api.html">Api</a></li><li><a href="module-Card.html">Card</a></li><li><a href="module-FormValidator.html">FormValidator</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-PopupConfirm.html">PopupConfirm</a></li><li><a href="module-PopupWithForm.html">PopupWithForm</a></li><li><a href="module-PopupWithImage.html">PopupWithImage</a></li><li><a href="module-Section.html">Section</a></li><li><a href="module-UserInfo.html">UserInfo</a></li></ul><h3>Namespaces</h3><ul><li><a href="constants.html">constants</a></li><li><a href="index_.html">index</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Sep 04 2020 05:12:38 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

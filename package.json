@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --open --watch --mode development",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "docs:build": "documentation build src/** -f html -o docs"
+    "docs:build": "documentation build src/** -f html -o docs",
+    "jsdoc:build": "jsdoc ./src/scripts/ ./src/scripts/components/ ./src/scripts/constants/ ./README.md -d ./jsdoc"
   },
   "repository": {
     "type": "git",
