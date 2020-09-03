@@ -1,6 +1,7 @@
 import Popup from './Popup.js';
 
 /**
+ * @module PopupWithImage
  * @description Класс PopupWithImage<br>
  * Отвечает за открытие и закрытие попапа с полноразмерным изображением
  * @param {String} popupSelector - селектор попапа
@@ -8,6 +9,8 @@ import Popup from './Popup.js';
  * @param {String} isOpenedModifier - модификатор открытого состояния попапа
  * @param {String} cardImageSelector - селектор изображения карточки
  * @param {String} cardTitleSelector - селектор элемента названия карточки
+ * @extends Popup
+ * @see {@link Popup}
  */
 export default class PopupWithImage extends Popup {
   constructor(popupSelector, closeIconSelector, isOpenedModifier, cardImageSelector, cardTitleSelector) {

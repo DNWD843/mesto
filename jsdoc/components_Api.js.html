@@ -1,6 +1,34 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Api.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Api.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @module Api
- * @description  Класс Api<br>
+ * @description  Класс Api&lt;br>
  * Отвечает за отправку запросов на сервер и проверку полученных ответов
  * @param {Object} Object - принимает в конструктор объект { URLs, headers, token } 
  * @param {Object} Object.URLs  - объект, содержащий адреса для отправки запросов
@@ -16,9 +44,9 @@
  *   avatarURL: 'https://mesto.../users/me/avatar'
  * },
  * headers: {
- *   "authorization": '<Ваш код авторизации>'
+ *   "authorization": '&lt;Ваш код авторизации>'
  * },
- * token: '<Ваш токен>'
+ * token: '&lt;Ваш токен>'
  * });
  */
 export default class Api {
@@ -33,7 +61,7 @@ export default class Api {
   }
 
   /**
-   * @description  Публичный метод<br>
+   * @description  Публичный метод&lt;br>
    * Загружает с сервера данные пользователя
    * @public
    * @returns {Promise} - возвращает промис с данными пользователя
@@ -59,7 +87,7 @@ export default class Api {
   }
 
   /**
-   * @description  Публичный метод<br>
+   * @description  Публичный метод&lt;br>
    * Загружает элементы с сервера
    * @public
    * @returns {Promise} - возвращает промис с данными элементов, сохраненных на сервере
@@ -85,8 +113,8 @@ export default class Api {
   }
 
   /**
-   * @description Публичный метод<br>
-   * Сохраняет на сервер элемент, добавленный через Форму добавления нового элемента<br>
+   * @description Публичный метод&lt;br>
+   * Сохраняет на сервер элемент, добавленный через Форму добавления нового элемента&lt;br>
    * Принимает аргументом объект item
    * @public
    * @param {Object} item : - объект с параметрами элемента
@@ -94,7 +122,7 @@ export default class Api {
    * @param {String} item.link - ссылка на изображение элемента из инпута Формы добавления нового элемента
    * @returns {Promise} - возвращает промис, содержащий данные нового элемента, полученные от сервера
    * @example
-   * api.addNewCard({name: <название элемента>, link: <ссылка на изображение элемента>})
+   * api.addNewCard({name: &lt;название элемента>, link: &lt;ссылка на изображение элемента>})
    */
   addNewCard(item) {
     //Отправляется запрос на добавление элемента
@@ -125,8 +153,8 @@ export default class Api {
   }
 
   /**
-   * @description Публичный метод<br>
-   * Удаляет элемент с сервера<br>
+   * @description Публичный метод&lt;br>
+   * Удаляет элемент с сервера&lt;br>
    * Принимает аргументом id удаляемого элемента
    * @public
    * @param {String} cardId : - id удаляемого элемента
@@ -153,8 +181,8 @@ export default class Api {
   }
 
   /**
-   * @description Публичный метод<br>
-   * Редактирует данные в профиле пользователя на сервере<br>
+   * @description Публичный метод&lt;br>
+   * Редактирует данные в профиле пользователя на сервере&lt;br>
    * Принимает арументом объект с новыми данными пользователя, веденными через Форму редактирования профиля
    * @public
    * @param {Object} Object : - { name, job } - объект с новыми данными пользователя
@@ -163,8 +191,8 @@ export default class Api {
    * @returns {Promise} - возвращает промис, содержащий новые данные пользователя, сохраненные на сервере
    * @example
    * api.editProfile({ 
-   *   name: <новое имя пользователя, введенное в инпут Формы редактирования профиля>, 
-   *   job: <новое описание пользователя, введенное в инпут Формы редактирования профиля >
+   *   name: &lt;новое имя пользователя, введенное в инпут Формы редактирования профиля>, 
+   *   job: &lt;новое описание пользователя, введенное в инпут Формы редактирования профиля >
    * });
    */
   editProfile({ name, job }) {
@@ -196,8 +224,8 @@ export default class Api {
   }
 
   /**
-   * @description Публичный метод<br>
-   * Загружает на сервер данные о нажатии кнопи "лайк" на элементе<br>
+   * @description Публичный метод&lt;br>
+   * Загружает на сервер данные о нажатии кнопи "лайк" на элементе&lt;br>
    * Принимает аргументом id элемента, на котором произошло нажатие "лайка" 
    * @public
    * @param {String} id - id элемента, на котором произошло нажатие "лайка"
@@ -213,7 +241,7 @@ export default class Api {
         }
       })
       .then((res) => {
-        //Если ответ положительный (сервер удачно отправил ответ),<br>
+        //Если ответ положительный (сервер удачно отправил ответ),&lt;br>
         //применяем метод .json(), который вернет новый промис с данными ответа
         if (res.ok) {
           return res.json();
@@ -224,8 +252,8 @@ export default class Api {
   }
 
   /**
-   * @description Публичный метод<br>
-   * Удаляет с сервера данные о "лайке" на элементе<br>
+   * @description Публичный метод&lt;br>
+   * Удаляет с сервера данные о "лайке" на элементе&lt;br>
    * Принимает аргументом id элемента, на котором произошло нажатие "лайка" 
    * @public
    * @param {String} id - id элемента, на котором произошло нажатие "лайка"
@@ -240,7 +268,7 @@ export default class Api {
         }
       })
       .then((res) => {
-        //Если ответ положительный (сервер удачно отправил ответ),<br>
+        //Если ответ положительный (сервер удачно отправил ответ),&lt;br>
         //применяем метод .json(), который вернет новый промис с данными ответа
         if (res.ok) {
           return res.json();
@@ -251,8 +279,8 @@ export default class Api {
   }
 
   /**
-   * @description Публичный метод<br>
-   * Сохраняет на сервер новую ссылку на аватар пользователя<br>
+   * @description Публичный метод&lt;br>
+   * Сохраняет на сервер новую ссылку на аватар пользователя&lt;br>
    * Принимает аргументом ссылку на новый аватар пользователя, полученную из Формы редактирования аватара
    * @public
    * @param {String} avatar - новая ссылка на аватар пользователя, полученная из Формы редактирования аватара
@@ -274,7 +302,7 @@ export default class Api {
         })
       })
       .then((res) => {
-        //Если ответ положительный (сервер удачно отправил ответ),<br>
+        //Если ответ положительный (сервер удачно отправил ответ),&lt;br>
         //применяем метод .json(), который вернет новый промис с данными ответа
         if (res.ok) {
           return res.json();
@@ -283,4 +311,26 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       });
   }
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Api.html">Api</a></li><li><a href="module-Cards.html">Cards</a></li><li><a href="module-FormValidator.html">FormValidator</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-PopupConfirm.html">PopupConfirm</a></li><li><a href="module-PopupWithForm.html">PopupWithForm</a></li><li><a href="module-PopupWithImage.html">PopupWithImage</a></li><li><a href="module-Section.html">Section</a></li><li><a href="module-UserInfo.html">UserInfo</a></li></ul><h3>Namespaces</h3><ul><li><a href="constants.html">constants</a></li><li><a href="index_.html">index</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Thu Sep 03 2020 21:58:57 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

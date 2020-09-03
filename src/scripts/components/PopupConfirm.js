@@ -1,12 +1,14 @@
 import Popup from './Popup.js';
 /**
+ * @module PopupConfirm
  * @description Класс PopupConfirm<br>
  * Отвечает за попап подтверждения действия
  * @param {String} popupSelector - селектор попапа подтверждения действия
  * @param {String} closeIconSelector - селектор иконки закрытия попапа
  * @param {String} isOpenedModifier - модификатор открытого состояния попапа
  * @param {String} confirmFormSelector - селектор формы попапа подтверждения действия
- * 
+ * @extends Popup
+ * @see {@link Popup}
  */
 export default class PopupConfirm extends Popup {
   constructor(popupSelector, closeIconSelector, isOpenedModifier, confirmFormSelector) {
