@@ -4,7 +4,7 @@
  * Отвечает за открытие и закрытие модальных окон (попапов)<br>
  * @param {String} popupSelector - селектор попапа
  * @param {String} closeIconSelector - селектор иконки закрытия попапа
- * @param {String} isOpenedModifier - модификатор, управляющий видимостью попапа. Присваивается попапу, когда нужно открыть попап.
+ * @param {String} isOpenedModifier - css-модификатор, управляющий видимостью попапа.<br>Присваивается попапу, когда нужно открыть попап.
  */
 
 export default class Popup {

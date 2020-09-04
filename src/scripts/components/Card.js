@@ -1,9 +1,9 @@
 /**
- * @module Cards
+ * @module Card
  * @description Класс Card<br>
  * Создает экземпляр элемента (карточки)<br>
  * Принимает в конструктор объект с данными для создания карточки и коллбэками, селекторы элементов карточки, идентификаторы состояния
- * @param {Object} Object : - объект с основными данными карточки и коллбэками
+ * @param {Object} Object  - объект с основными данными карточки и коллбэками
     @param {Object} Object.data - { title, link, id } - объект с данными карточки, необходимыми для ее создания
     @param {String} Object.data.title - название карточки
 		@param {String} Object.data.link - ссылка на изображение карточки
@@ -13,7 +13,7 @@
     @param {Function} Object.setSubmitAction - коллбэк, определяющий функцию-обработчик при подтверждении удаления карточки 
     @param {Function} Object.handleClickLikeIcon - обработчик клика по иконке "лайк"
  * @param {String} cardTemplateSelector - селектор шаблона элемента карточки
- * @param {Object} cardElementsSelectors : - объект, содержащий селекторы элементов карточки
+ * @param {Object} cardElementsSelectors  - объект, содержащий селекторы элементов карточки
     @param {String} cardElementsSelectors.cardSelector - селектор карточки
     @param {String} cardElementsSelectors.deleteIconSelector - селектор иконки удаления 
     @param {String} cardElementsSelectors.cardImageSelector - селектор изображения карточки

@@ -289,7 +289,7 @@ function createCard(item) {
   let isLiked = item.likesArray.some((owner) => owner._id === myIdentifier.id);
   /**
    * @description Экземпляр класса Card<br>
-   * Создает карточку
+   * DOM-нода карточки
    * @constant
    * @name cardNode
    * @type {HTMLElement}
@@ -382,7 +382,7 @@ Promise.all([api.loadUserData(), api.loadCards()])
 
     /**
      * @description Экземпляр класса Section<br>
-     * Создает контейнер с карточками
+     * DOM-нода контейнера с карточками
      * @constant
      * @name cardsContainer
      * @memberof index
