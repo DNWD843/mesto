@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/FormValidator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/FormValidator.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module FormValidator
+ * @description Класс FormValidator&lt;br>
+ * Определяет логику валидации форм в модальных окнах приложения&lt;br>
+ * Для каждой формы создается свой экземпляр класса FormValidator&lt;br>
+ * Класс имеет один публичный метод, запускающий валидацию - enableValidation()&lt;br>
+ * Класс принимает в конструктор объект настроек config и DOM-ноду формы, для которой необходимо запустить валидацию
+ * @param {Object} config - объект настроек валидации, содержит селекторы элементов и классы, необходимые для валидации
+ * @param {String} config.inputSelector - селектор инпута формы, общий для всех инпутов
+ * @param {String} config.submitButtonSelector - селектор кнопки отправки формы (submit)
+ * @param {String} config.inactiveButtonClass - css класс, устанавливающй неактивное состояние кнопки submit
+ * @param {String} config.inputErrorClass - css класс, устанавливающй невалидное состояние инпута
+ * @param {String} config.errorClass - css класс, устанавливающй активное состояние элемента, содержащего текст ошибки
+ * @param {HTMLElement} formNode - DOM-нода формы, для которой необходимо запустить валидацию
+ */
+
+export default class FormValidator {
+  constructor(config, formNode) {
+    this._inputSelector = config.inputSelector;
+    this._submitButtonSelector = config.submitButtonSelector;
+    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._inputErrorClass = config.inputErrorClass;
+    this._errorClass = config.errorClass;
+    this._formElement = formNode;
+  }
+
+  /**
+   * @description Приватный метод&lt;br>
+   * Метод вывода сообщения об ошибке
+   * @private
+   * @param {HTMLElement} inputElement - инпут формы (один из нескольких или единственный)
+   * @param {String} errorMesage - сообщение об ошибке
+   */
+  _showInputError(inputElement, errorMesage) {
+    //DOM-элемент, содержащий текст ошибки, ищется и сохраняется в локальную переменную
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    //проверяемый инпут не прошел валидацию и ему добавляется класс, устанавливающий стиль для невалидного инпута
+    inputElement.classList.add(this._inputErrorClass);
+    //в DOM-элемент, содержащий текст ошибки, записывается текст ошибки
+    errorElement.textContent = errorMesage;
+    //DOM-элементу, содержащему текст ошибки, добавляется класс, устанавливающий стиль для отображения ошибки
+    errorElement.classList.add(this._errorClass);
+  }
+
+  /**
+   * @description Приватный метод&lt;br>
+   * Метод скрытия сообщения об ошибке
+   * @private
+   * @param {HTMLElement} inputElement - инпут формы (один из нескольких или единственный)
+   */
+
+  _hideInputError(inputElement) {
+    //DOM-элемент, содержащий текст ошибки, ищется и сохраняется в локальную переменную
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    //проверяемый инпут прошел валидацию и у него удаляется класс, устанавливающий стиль для невалидного инпута
+    inputElement.classList.remove(this._inputErrorClass);
+    //у DOM-элемента, содержащего текст ошибки, удаляется класс, устанавливающий стиль для отображения ошибки
+    errorElement.classList.remove(this._errorClass);
+    //в DOM-элементе, содержащем текст ошибки, стирается текст ошибки - записывается пустая строка
+    errorElement.textContent = '';
+  }
+
+  /**
+   * @description Приватный метод&lt;br>
+   * Метод проверки валидности инпутов в форме&lt;br>
+   * Метод как бы отвечает на вопрос: этот инпут валиден?&lt;br>
+   * &amp;nbsp Если да, то для этого инпута вызывается приватный метод скрытия ошибок _hideInputError&lt;br>
+   * &amp;nbsp Если нет, то для этого инпута вызывается приватный метод отображения ошибок _showInputError&lt;br>
+   * @private 
+   * @param {HTMLElement} inputElement - инпут формы (один из нескольких или единственный)
+   */
+  //
+  _isInputValid(inputElement) {
+    if (!inputElement.validity.valid) {
+      this._showInputError(inputElement, inputElement.validationMessage);
+    } else {
+      this._hideInputError(inputElement);
+    }
+  }
+
+  /**
+   * @description Приватный метод&lt;br>
+   * Метод проверки наличия невалидных инпутов в форме&lt;br>
+   * Метод перебирает все инпуты формы и проверяет каждый на валидность&lt;br>
+   * Метод как бы отвечает на вопрос: в этой форме есть хотя бы один невалидный инпут?&lt;br>
+   * Возвращает true, если в форме есть хотя бы один невалидный инпут&lt;br>
+   * Возвращает false, если в форме нет ни одного невалидного инпута
+   * @private 
+   */
+  _hasInvalidInput(inputList) {
+    return inputList.some((inputElement) => {
+      //Валидность инпута определяем по состоянию свойства validity объекта ValidityState
+      return !inputElement.validity.valid;
+    });
+  }
+
+  /**
+   * @description Приватный метод&lt;br>
+   * Изменяет состояние кнопки отправки формы (submit) в зависимости от валидности или невалидности инпутов формы&lt;br>
+   * Если форма содержит хотя бы один невалидный инпут, кнопка submit становится неактивной
+   * @private
+   * @param {Array} inputList - массив инпутов формы
+   * @param {HTMLElement} buttonElement - DOM-элемент кнопки отправки формы (submit) 
+   */
+  _toggleButtonState(inputList, buttonElement) {
+    //Проврка наличия хотя бы одного невалидного инпута в форме
+    if (this._hasInvalidInput(inputList)) {
+      //Если хотя бы один невалидный инпут есть, кнопка submit становится неактивной
+      buttonElement.classList.add(this._inactiveButtonClass);
+      buttonElement.setAttribute('disabled', true);
+    } else {
+      //Если все инпуты формы валидны, кнопка submit становится активной
+      buttonElement.classList.remove(this._inactiveButtonClass);
+      buttonElement.removeAttribute('disabled');
+    }
+  }
+
+  /**
+   * @description Приватный метод&lt;br>
+   * Метод сброса валидации&lt;br>
+   * Если пользователь заполнял форму, но передумал отправлять данные и закрыл ее, то, несмотря на очистку инпутов при открытии форм,&lt;br>
+   * в форме остаются ошибки и стили невалидных инпутов.&lt;br>
+   * Метод _resetValidation очищает форму от ошибок и невалидных стилей, оставшихся после предыдущего сеанса работы пользователя с формой
+   * @private
+   * @param {Array} inputList - массив инпутов формы
+   * @param {HTMLElement} buttonElement - DOM-элемент кнопки отправки формы (submit)
+   */
+  _resetValidation(inputList, buttonElement) {
+    inputList.forEach((input) => {
+      //Для очистки формы от ошибок и невалидных стилей используется метод _hideInputError класса FormValidator 
+      this._hideInputError(input);
+    });
+    //Для установки состяния кнопки submit в соответствии с текущим состоянием формы используется метод _toggleButtonState класса FormValidator
+    this._toggleButtonState(inputList, buttonElement);
+  }
+
+  /**
+   * @description Приватный метод&lt;br>
+   * Метод установки слушателей
+   * @private
+   */
+  // 
+  _setEventListeners() {
+    //Массив инпутов формы
+    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    //Элемент кнопки submit
+    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+    //Элемент кнопки, открывающей форму. 
+    //Каждая форма открывается своей кнопкой. Поиск элемента кнопки производится по ее id.
+    //id кнопки состоит из id формы, которую он открывает, и слова button, добавленного через дефис.
+    //id формы, в свою очередь, имеет значение равное значению атрибута name этой же формы. 
+    //Это позволяет создать шаблон для поиска кнопки, открывающей конкретную форму, 
+    //хотя кнопка и форма не имеют никакого родства в DOM. 
+    //Пример:
+    //Форма в модальном окне:
+    //&lt;form class="form ..." name="add-photo-form">
+    //Кнопка в блоке user-profile:
+    //&lt;button type="button" class="button ..." name="add-photo-form-button" id="add-photo-form-button">
+    //Для корректной работы валидации при добавлении новых форм, необходимо придерживаться указанного порядка
+    //присваивания значений атрибутов name и id в формах и открывающих их кнопках.
+    const openFormButton = document.querySelector(`#${this._formElement.name}-button`);
+    //Актуализируем кнопку submit  в соответствии с состоянием формы 
+    this._toggleButtonState(inputList, buttonElement);
+    //Перебираем все инпуты формы
+    inputList.forEach((inputElement) => {
+      //Устанавливаем слушатели посимвольного ввода на каждый инпут
+      inputElement.addEventListener('input', () => {
+        //Проверяем валидность инпута после ввода/удаления каждого символа
+        this._isInputValid(inputElement);
+        //Актуализируем кнопку submit формы в зависимости от валидности инпута
+        this._toggleButtonState(inputList, buttonElement);
+      });
+    });
+    //Слушатель клика по кнопке открытия формы
+    openFormButton.addEventListener('click', () => {
+      //Сбрасываем "остатки" прошлой валидации перед открытием формы
+      this._resetValidation(inputList, buttonElement);
+    });
+  }
+
+  /**
+   * @description Публичный метод&lt;br>
+   * Включает валидацию формы&lt;br>
+   * Включение валидации производится один раз.&lt;br>
+   * Далее валидация осуществляется постоянно при взаимодействии пользователя с формой
+   * @public
+   * @example
+   * const config = {
+   *  inputSelector: '.someSelector', 
+   *  submitButtonSelector: '.someSelector',
+   *  inactiveButtonClass: 'someClass',
+   *  inputErrorClass: 'someClass',
+   *  errorClass: 'someClass',
+   * };
+   * const editForm = document.querySelector('.someFormSelector');
+   * const editFormValidator = new FormValidator(config, editForm);
+   * editFormValidator.enableValidation();
+   */
+  enableValidation() {
+    //Отменяем стандартное поведение формы при сабмите
+    this._formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    //Устанавливаем слушатели событий
+    this._setEventListeners();
+  }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Api.html">Api</a></li><li><a href="module-Cards.html">Cards</a></li><li><a href="module-FormValidator.html">FormValidator</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-PopupConfirm.html">PopupConfirm</a></li><li><a href="module-PopupWithForm.html">PopupWithForm</a></li><li><a href="module-PopupWithImage.html">PopupWithImage</a></li><li><a href="module-Section.html">Section</a></li><li><a href="module-UserInfo.html">UserInfo</a></li></ul><h3>Namespaces</h3><ul><li><a href="constants.html">constants</a></li><li><a href="index_.html">index</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Sep 04 2020 04:33:04 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

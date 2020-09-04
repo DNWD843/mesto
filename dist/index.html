@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Место - Россия</title>
+<link href="main.css" rel="stylesheet"></head>
+
+<body class="page">
+  <div class="page__container">
+    <header class="header page__header">
+      <img class="header__logo" src="./images/headerLogo.svg" alt="логотип место Россия">
+    </header>
+
+    <main class="content page__content">
+
+      <section class="user-profile content__user-profile">
+        <button type="button" class="button  user-profile__avatar-button" name="edit-avatar-form-button" id="edit-avatar-form-button" value="Добавить аватар" title="Изменить аватар"></button>
+        <div class="user-profile__user-info">
+          <h1 class="user-profile__user-name">Жак-Ив Кусто</h1>
+          <button type="button" class="button button_type_edit user-profile__edit-button" name="edit-profile-form-button" id="edit-profile-form-button" value="Открыть форму" title="Редактировать профиль"></button>
+          <p class="user-profile__user-job">Исследователь океана</p>
+        </div>
+        <button type="button" class="button button_type_add user-profile__add-button" name="add-photo-form-button" id="add-photo-form-button" value="Добавить фото" title="Добавить фото"></button>
+      </section>
+
+      <section class="photo content__photo">
+        <ul class="photo__cards">
+        </ul>
+      </section>
+
+    </main>
+    <footer class="footer page__footer">
+      <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup page__overlay page__overlay_theme_light popup_type_edit-profile" id="edit">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-button button_close_edit-profile" name="close-edit-form" value="Закрыть форму"></button>
+        <form class="form popup__form form_type_edit" name="edit-profile-form" novalidate>
+          <h2 class="form__title">Редактировать профиль</h2>
+          <ul class="form__inputs">
+            <li class="form__field">
+              <input type="text" class="form__input form__input_type_name" name="user-name-input" id="user-name-input" value=" " placeholder="Имя" minlength="2" maxlength="40" required>
+              <span class="form__input-error" id="user-name-input-error"></span>
+            </li>
+            <li class="form__field">
+              <input type="text" class="form__input form__input_type_job" name="user-job-input" id="user-job-input" value=" " placeholder="О себе" minlength="2" maxlength="200" required>
+              <span class="form__input-error" id="user-job-input-error"></span>
+            </li>
+          </ul>
+          <button type="submit" class="button button_type_submit form__submit-button" name="save-profile-button" value="Сохранить">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup page__overlay page__overlay_theme_light popup_type_add-photo" id="add">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-button button_close_add-photo" name="close-add-form" value="Закрыть форму"></button>
+        <form class="form popup__form form_type_add" name="add-photo-form" novalidate>
+          <h2 class="form__title">Новое место</h2>
+          <ul class="form__inputs">
+            <li class="form__field">
+              <input type="text" class="form__input form__input_type_place-title" name="place-title-input" id="place-title-input" value="" minlength="1" maxlength="30" placeholder="Название" required>
+              <span class="form__input-error" id="place-title-input-error"></span>
+            </li>
+            <li class="form__field">
+              <input type="url" class="form__input form__input_type_image-link" name="image-link-input" id="image-link-input" value="" placeholder="Ссылка на картинку" required>
+              <span class="form__input-error" id="image-link-input-error"></span>
+            </li>
+          </ul>
+          <button type="submit" class="button button_type_submit form__submit-button" name="create-card-button" value="Создать">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup page__overlay page__overlay_theme_dark popup_type_view-photo" id="view">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-photo-button button_close_view-photo" name="close-photo" value="Закрыть фото"></button>
+        <figure class="popup__photo-content">
+          <img class="popup__place-image" src="#" alt="изображение">
+          <figcaption class="popup__place-name">Холмогорский район</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="popup page__overlay page__overlay_theme_light popup_type_confirm" id="confirm">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-button button_close_confirm-popup" name="close-confirm-popup" value="Закрыть"></button>
+        <form class="form popup__form form_type_confirm" name="confirm-form" novalidate>
+          <h2 class="form__title">Вы уверены?</h2>
+          <button type="submit" class="button button_type_submit form__submit-button" name="confirm-button" value="Да">Да</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup page__overlay page__overlay_theme_light popup_type_edit-avatar" id="avatar">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close popup__close-button button_close_edit-avatar-form" name="close-edit-avatar-form" value="Закрыть форму"></button>
+        <form class="form popup__form form_type_avatar" name="edit-avatar-form" novalidate>
+          <h2 class="form__title">Обновить аватар</h2>
+          <ul class="form__inputs">
+            <li class="form__field">
+              <input type="url" class="form__input form__input_type_avatar-link" name="avatar-link-input" id="avatar-link-input" value="" placeholder="Ссылка на картинку" required>
+              <span class="form__input-error" id="avatar-link-input-error"></span>
+            </li>
+          </ul>
+          <button type="submit" class="button button_type_submit form__submit-button" name="create-avatar-button" value="Создать">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <template id="card-template">
+
+      <li class="card">
+        <img class="card__image" src="#" alt="фото" name="photo" title="Открыть фото">
+        <button type="button" class="button button_type_delete card__delete-button" name="delete-button" value="delete" title="Удалить фото"></button>
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+					<div class="card__like-info">
+            <button type="button" class="button button_type_like card__like-button button_like-status_not-checked" name="like-button" value="like"></button>
+					  <span class="card__like-counter">5</span>
+					</div>
+        </div>
+      </li>
+
+    </template>
+  </div>
+
+<script src="main.js"></script></body>
+
+</html>
