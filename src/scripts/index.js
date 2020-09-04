@@ -240,7 +240,6 @@ const editAvatarPopup = new PopupWithForm({
  * Возвращает готовую для размещения на странице карточку
  * @memberof index
  * @instance
- * 
  * @name createCard
  * @param {Object} item - объект, содержащий данные карточки, полученные от сервера
  * @param {Object} item.owner - объект, содержащий данные о собственнике карточки
