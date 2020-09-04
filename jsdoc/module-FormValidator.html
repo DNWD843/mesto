@@ -1,50 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Module: FormValidator</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
+<head>
+  <meta charset="utf-8">
+  <title>JSDoc: Module: FormValidator</title>
+
+  <script src="scripts/prettify/prettify.js">
+  </script>
+  <script src="scripts/prettify/lang-css.js">
+  </script>
+  <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
 
 <body>
 
-<div id="main">
+  <div id="main">
 
     <h1 class="page-title">Module: FormValidator</h1>
 
-    
 
 
 
 
-<section>
 
-<header>
-    
-        
-            
-        
-    
-</header>
+    <section>
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Класс FormValidator<br>Определяет логику валидации форм в модальных окнах приложения<br>Для каждой формы создается свой экземпляр класса FormValidator<br>Класс имеет один публичный метод, запускающий валидацию - enableValidation()<br>Класс принимает в конструктор объект настроек config и DOM-ноду формы, для которой необходимо запустить валидацию</div>
-        
-
-        
-            
+      <header>
 
 
+
+
+
+      </header>
+
+      <article>
+        <div class="container-overview">
+
+
+          <div class="description">Класс FormValidator<br> Определяет логику валидации форм в модальных окнах приложения<br> Для каждой формы создается свой экземпляр класса FormValidator<br> Класс имеет один публичный метод, запускающий валидацию - enableValidation()<br> Класс
+            принимает в конструктор объект настроек config и DOM-ноду формы, для которой необходимо запустить валидацию</div>
 
 
 
@@ -54,262 +52,230 @@
 
 
 
-    <h5>Parameters:</h5>
-    
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
 
-        <th>Type</th>
 
-        
 
-        
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
 
-    <tbody>
-    
+          <h5>Parameters:</h5>
 
-        <tr>
-            
+
+          <table class="params">
+            <thead>
+              <tr>
+
+                <th>Name</th>
+
+
+                <th>Type</th>
+
+
+
+
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+
+              <tr>
+
                 <td class="name"><code>config</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">объект настроек валидации, содержит селекторы элементов и классы, необходимые для валидации
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>inputSelector</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+                <td class="type">
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">селектор инпута формы, общий для всех инпутов</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>submitButtonSelector</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+                  <span class="param-type">Object</span>
 
 
-            
-            </td>
 
-            
-
-            
-
-            <td class="description last">селектор кнопки отправки формы (submit)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>inactiveButtonClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+                </td>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">css класс, устанавливающй неактивное состояние кнопки submit</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>inputErrorClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
 
 
-            
-            </td>
 
-            
-
-            
-
-            <td class="description last">css класс, устанавливающй невалидное состояние инпута</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>errorClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+                <td class="description last">объект настроек валидации, содержит селекторы элементов и классы, необходимые для валидации
+                  <h6>Properties</h6>
 
 
-            
-            </td>
+                  <table class="params">
+                    <thead>
+                      <tr>
 
-            
+                        <th>Name</th>
 
-            
 
-            <td class="description last">css класс, устанавливающй активное состояние элемента, содержащего текст ошибки</td>
-        </tr>
+                        <th>Type</th>
 
-    
-    </tbody>
-</table>
 
-            </td>
-        </tr>
 
-    
 
-        <tr>
-            
+
+                        <th class="last">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                      <tr>
+
+                        <td class="name"><code>inputSelector</code></td>
+
+
+                        <td class="type">
+
+
+                          <span class="param-type">String</span>
+
+
+
+                        </td>
+
+
+
+
+
+                        <td class="description last">селектор инпута формы, общий для всех инпутов</td>
+                      </tr>
+
+
+
+                      <tr>
+
+                        <td class="name"><code>submitButtonSelector</code></td>
+
+
+                        <td class="type">
+
+
+                          <span class="param-type">String</span>
+
+
+
+                        </td>
+
+
+
+
+
+                        <td class="description last">селектор кнопки отправки формы (submit)</td>
+                      </tr>
+
+
+
+                      <tr>
+
+                        <td class="name"><code>inactiveButtonClass</code></td>
+
+
+                        <td class="type">
+
+
+                          <span class="param-type">String</span>
+
+
+
+                        </td>
+
+
+
+
+
+                        <td class="description last">css класс, устанавливающй неактивное состояние кнопки submit</td>
+                      </tr>
+
+
+
+                      <tr>
+
+                        <td class="name"><code>inputErrorClass</code></td>
+
+
+                        <td class="type">
+
+
+                          <span class="param-type">String</span>
+
+
+
+                        </td>
+
+
+
+
+
+                        <td class="description last">css класс, устанавливающй невалидное состояние инпута</td>
+                      </tr>
+
+
+
+                      <tr>
+
+                        <td class="name"><code>errorClass</code></td>
+
+
+                        <td class="type">
+
+
+                          <span class="param-type">String</span>
+
+
+
+                        </td>
+
+
+
+
+
+                        <td class="description last">css класс, устанавливающй активное состояние элемента, содержащего текст ошибки</td>
+                      </tr>
+
+
+                    </tbody>
+                  </table>
+
+                </td>
+              </tr>
+
+
+
+              <tr>
+
                 <td class="name"><code>formNode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">HTMLElement</span>
 
 
-            
-            </td>
+                <td class="type">
 
-            
 
-            
+                  <span class="param-type">HTMLElement</span>
 
-            <td class="description last">DOM-нода формы, для которой необходимо запустить валидацию</td>
-        </tr>
 
-    
-    </tbody>
-</table>
+
+                </td>
 
 
 
 
 
+                <td class="description last">DOM-нода формы, для которой необходимо запустить валидацию</td>
+              </tr>
 
-<dl class="details">
 
-    
+            </tbody>
+          </table>
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FormValidator.js.html">components/FormValidator.js</a>, <a href="components_FormValidator.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
+          <dl class="details">
 
 
 
@@ -330,49 +296,85 @@
 
 
 
-        
-    
-    </div>
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="components_FormValidator.js.html">components/FormValidator.js</a>, <a href="components_FormValidator.js.html#line1">line 1</a>
+                </li>
+              </ul>
+            </dd>
 
-    
 
-    
+
+
+
+
+
+          </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <h3 class="subsection-title">Methods</h3>
 
-        
-            
 
-    
 
-    
-    <h4 class="name" id="enableValidation"><span class="type-signature"></span>enableValidation<span class="signature">()</span><span class="type-signature"></span></h4>
-    
 
-    
 
 
 
-<div class="description">
-    Публичный метод<br>Включает валидацию формы<br>Включение валидации производится один раз.<br>Далее валидация осуществляется постоянно при взаимодействии пользователя с формой
-</div>
+        <h4 class="name" id="enableValidation"><span class="type-signature"></span>enableValidation<span class="signature">()</span><span class="type-signature"></span></h4>
 
 
 
 
 
 
+        <div class="description">
+          Публичный метод<br> Включает валидацию формы<br> Включение валидации производится один раз.<br> Далее валидация осуществляется постоянно при взаимодействии пользователя с формой
+        </div>
 
 
 
@@ -380,45 +382,23 @@
 
 
 
-<dl class="details">
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
+        <dl class="details">
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FormValidator.js.html">components/FormValidator.js</a>, <a href="components_FormValidator.js.html#line199">line 199</a>
-    </li></ul></dd>
-    
 
-    
 
-    
 
-    
-</dl>
 
 
 
@@ -435,41 +415,103 @@
 
 
 
+          <dt class="tag-source">Source:</dt>
+          <dd class="tag-source">
+            <ul class="dummy">
+              <li>
+                <a href="components_FormValidator.js.html">components/FormValidator.js</a>, <a href="components_FormValidator.js.html#line199">line 199</a>
+              </li>
+            </ul>
+          </dd>
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const config = { inputSelector: '.someSelector',  submitButtonSelector: '.someSelector', inactiveButtonClass: 'someClass', inputErrorClass: 'someClass', errorClass: 'someClass',};const editForm = document.querySelector('.someFormSelector');const editFormValidator = new FormValidator(config, editForm);editFormValidator.enableValidation();</code></pre>
 
 
 
-        
-    
 
-    
+        </dl>
 
-    
-</article>
 
-</section>
 
 
 
 
-</div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Api.html">Api</a></li><li><a href="module-Cards.html">Cards</a></li><li><a href="module-FormValidator.html">FormValidator</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-PopupConfirm.html">PopupConfirm</a></li><li><a href="module-PopupWithForm.html">PopupWithForm</a></li><li><a href="module-PopupWithImage.html">PopupWithImage</a></li><li><a href="module-Section.html">Section</a></li><li><a href="module-UserInfo.html">UserInfo</a></li></ul><h3>Namespaces</h3><ul><li><a href="constants.html">constants</a></li><li><a href="index_.html">index</a></li></ul>
-</nav>
 
-<br class="clear">
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Sep 04 2020 04:33:05 GMT+0300 (GMT+03:00)
-</footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+
+
+
+
+
+
+
+
+
+        <h5>Example</h5>
+
+        <pre class="prettyprint"><code>const config = {
+ inputSelector: '.someSelector', 
+ submitButtonSelector: '.someSelector',
+ inactiveButtonClass: 'someClass',
+ inputErrorClass: 'someClass',
+ errorClass: 'someClass',
+};
+const editForm = document.querySelector('.someFormSelector');
+const editFormValidator = new FormValidator(config, editForm);
+editFormValidator.enableValidation();</code></pre>
+
+
+
+
+
+
+
+
+
+      </article>
+
+    </section>
+
+
+
+
+  </div>
+
+  <nav>
+    <h2><a href="index.html">Home</a></h2>
+    <h3>Modules</h3>
+    <ul>
+      <li><a href="module-Api.html">Api</a></li>
+      <li><a href="module-Card.html">Card</a></li>
+      <li><a href="module-FormValidator.html">FormValidator</a></li>
+      <li><a href="module-Popup.html">Popup</a></li>
+      <li><a href="module-PopupConfirm.html">PopupConfirm</a></li>
+      <li><a href="module-PopupWithForm.html">PopupWithForm</a></li>
+      <li><a href="module-PopupWithImage.html">PopupWithImage</a></li>
+      <li><a href="module-Section.html">Section</a></li>
+      <li><a href="module-UserInfo.html">UserInfo</a></li>
+    </ul>
+    <h3>Namespaces</h3>
+    <ul>
+      <li><a href="constants.html">constants</a></li>
+      <li><a href="index_.html">index</a></li>
+    </ul>
+  </nav>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Sep 04 2020 05:12:38 GMT+0300 (GMT+03:00)
+  </footer>
+
+  <script>
+    prettyPrint();
+  </script>
+  <script src="scripts/linenumber.js">
+  </script>
 </body>
+
 </html>
