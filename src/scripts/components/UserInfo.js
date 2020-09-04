@@ -38,7 +38,7 @@ export default class UserInfo {
    * @description Публичный метод<br>Размещает новые данные пользователя на странице<br>
    * Принимает на вход объект {name, job, avatar} - содержащий новые данные о пользователе
    * @public
-   * @param {Object} Object: {name, job, avatar}
+   * @param {Object} Object {name, job, avatar}
    * @param {String} Object.name - новое имя пользователя
    * @param {String} Object.job - новая информация о пользователе
    * @param {String} Object.avatar - новая ссылка на аватар

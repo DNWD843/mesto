@@ -4,7 +4,13 @@
  * Отвечает за отправку запросов на сервер и проверку полученных ответов
  * @param {Object} Object - принимает в конструктор объект { URLs, headers, token } 
  * @param {Object} Object.URLs  - объект, содержащий адреса для отправки запросов
- * @param {Object} Object.headers  - объект, содержащий заголовки запросов
+ * @param {String} Object.URLs.baseURL - базовый URL сервера
+ * @param {String} Object.URLs.cardsURL - URL для получения/добавления карточек
+ * @param {String} Object.URLs.userURL - URLдля получения/добавления данных пользователя
+ * @param {String} Object.URLs.likesURL - URL для получения/добавления информации о "лайках"
+ * @param {String} Object.URLs.avatarURL - URL для получения/добавления ссылки на аватар
+ * @param {Object} Object.headers - объект, содержащий заголовки запросов
+ * @param {String} Object.headers.authorization - код авторизации (токен)
  * @param {String} Object.token  - токен для доступа на сервер
  * @example
  * const api = new Api({
@@ -89,7 +95,7 @@ export default class Api {
    * Сохраняет на сервер элемент, добавленный через Форму добавления нового элемента<br>
    * Принимает аргументом объект item
    * @public
-   * @param {Object} item : - объект с параметрами элемента
+   * @param {Object} item  - объект с параметрами элемента
    * @param {String} item.name - название элемента из инпута Формы добавления нового элемента
    * @param {String} item.link - ссылка на изображение элемента из инпута Формы добавления нового элемента
    * @returns {Promise} - возвращает промис, содержащий данные нового элемента, полученные от сервера
@@ -129,7 +135,7 @@ export default class Api {
    * Удаляет элемент с сервера<br>
    * Принимает аргументом id удаляемого элемента
    * @public
-   * @param {String} cardId : - id удаляемого элемента
+   * @param {String} cardId  - id удаляемого элемента
    * @returns {Promise} - возвращает промис с сообщением об успешном удалении элемента
    */
   deleteCard(cardId) {
@@ -157,7 +163,7 @@ export default class Api {
    * Редактирует данные в профиле пользователя на сервере<br>
    * Принимает арументом объект с новыми данными пользователя, веденными через Форму редактирования профиля
    * @public
-   * @param {Object} Object : - { name, job } - объект с новыми данными пользователя
+   * @param {Object} Object  - { name, job } - объект с новыми данными пользователя
    * @param {String} Object.name - новое имя пользователя, введенное в Форму редактирования профиля
    * @param {String} Object.job - новое описание пользователя, введенное в Форму редактирования профиля
    * @returns {Promise} - возвращает промис, содержащий новые данные пользователя, сохраненные на сервере

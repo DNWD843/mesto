@@ -6,7 +6,7 @@ import Popup from './Popup.js';
  * Отвечает за открытие и закрытие попапа с полноразмерным изображением
  * @param {String} popupSelector - селектор попапа
  * @param {String} closeIconSelector - селектор иконки закрытия попапа
- * @param {String} isOpenedModifier - модификатор открытого состояния попапа
+ * @param {String} isOpenedModifier - css-модификатор открытого состояния попапа
  * @param {String} cardImageSelector - селектор изображения карточки
  * @param {String} cardTitleSelector - селектор элемента названия карточки
  * @extends Popup
