@@ -11,7 +11,7 @@ import Popup from './Popup.js';
  * @param {String} Object.formInputSelector - селектор инпута формы, общий для всех инпутов формы
  * @param {String} popupSelector - селектор попапа
  * @param {String} closeIconSelector - селектор иконки закрытия попапа
- * @param {String} isOpenedModifier - модификатор открытого состояния попапа
+ * @param {String} isOpenedModifier - css-модификатор открытого состояния попапа
  * @extends Popup
  * @see {@link Popup}
  */
